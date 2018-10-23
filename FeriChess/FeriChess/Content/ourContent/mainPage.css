@@ -1,0 +1,77 @@
+*{
+    margin: 0; 
+    padding: 0;
+  }
+  
+  body {
+      background-color: #f4e1d2;
+  }
+  
+  /* Navbar */
+  ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #c94c4c;
+  }
+  
+  li {
+      float: left;
+  }
+  
+  li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 10px 16px;
+      text-decoration: none;
+  }
+  
+  li a:hover:not(.active) {
+      color: #000;
+  }
+  
+  .active {
+     color: #000;
+  }
+  
+  
+  /* Chessboard */
+  #chessboard {
+    margin: 50px auto !important; 
+    /* padding: 0;  */
+  }
+  
+  table { 
+    border-collapse: collapse; 
+    border-spacing: 0; 
+  }
+  
+  #chessboard { 
+    padding: 0px; 
+    margin: 0 auto; 
+  }
+  
+  #chessboard tr td { 
+    width: 60px; 
+    height: 60px; 
+  }
+  
+  #chessboard tr:nth-child(2n) td:nth-child(2n+1) { 
+    background: #b9936c; 
+  }
+  
+  #chessboard tr:nth-child(2n) td:nth-child(2n) { 
+    background: #dac292; 
+  }
+  
+  #chessboard tr:nth-child(2n+1) td:nth-child(2n) { 
+    background: #b9936c;  
+  }  
+  
+  #chessboard tr:nth-child(2n+1) td:nth-child(2n-1) { 
+     background: #dac292;
+  }
+  
+  
