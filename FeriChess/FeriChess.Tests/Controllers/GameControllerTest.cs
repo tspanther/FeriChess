@@ -6,20 +6,19 @@ using FeriChess.Controllers;
 namespace FeriChess.Tests.Controllers
 {
     [TestClass]
-    public class HomeControllerTest
+    public class GameControllerTest
     {
         [TestMethod]
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            GameController controller = new GameController();
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("Home Page", result.ViewBag.Title);
         }
     }
 }
