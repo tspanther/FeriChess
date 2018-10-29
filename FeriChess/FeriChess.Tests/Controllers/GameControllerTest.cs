@@ -8,17 +8,6 @@ namespace FeriChess.Tests.Controllers
     [TestClass]
     public class GameControllerTest
     {
-        [TestMethod]
-        public void Index()
-        {
-            // Arrange
-            GameController controller = new GameController();
 
-            // Act
-            ViewResult result = controller.Index() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
-        }
     }
 }
