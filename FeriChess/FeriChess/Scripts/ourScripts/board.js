@@ -1,7 +1,7 @@
 $(document).ready(function () {
-	for (var row = 0; row < 8; row++) {
+	for (var row = 1; row <= 8; row++) {
 		var col = "";
-		for (var column = 0; column < 8; column++) {
+		for (var column = 1; column <= 8; column++) {
 			col += "<td class=\"field\" data-pos='" + row + column + "'></td>";
 		}
 
