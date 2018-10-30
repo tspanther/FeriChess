@@ -58,7 +58,7 @@ $(document).ready(function () {
 				data: request,
 				success: function (data) {
 					if (method == "get-moves") {
-						var availableFields = JSON.parse(JSON.stringify(data));
+						var availableFields = data;
 						var pos;
 						for (var i = 0; i < availableFields.length; i++) {
 							field = availableFields[i];
@@ -67,7 +67,7 @@ $(document).ready(function () {
 						}
 					}
 					else if (method = "make-move") {
-						var availableFields = JSON.parse(JSON.stringify(data));
+						var availableFields = data;
 						var pos;
 						var fig;
 						for (var i = 0; i < availableFields.length; i++) {
