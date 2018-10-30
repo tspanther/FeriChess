@@ -25,7 +25,7 @@ namespace FeriChess.Models
         public FieldUpdate(Piece _piece)
         {
             Field = _piece.Field;
-            PopulateBy = (_piece.Color ? "w" : "b") + (_piece.Name.Length == 0 ? _piece.Name[0] : 'p');
+            PopulateBy = (_piece.Color ? "w" : "b") + (_piece.Name.Length != 0 ? _piece.Name[0] : 'p');
         }
 
         /// <summary>

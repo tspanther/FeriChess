@@ -73,7 +73,7 @@ $(document).ready(function () {
 						for (var i = 0; i < availableFields.length; i++) {
 							change = availableFields[i];
 							pos = change.Field.X.toString() + change.Field.Y.toString();
-							if (change.PopulateBy) {
+							if (change.PopulateBy != null) {
 								fig = change.PopulateBy.toLowerCase();
 							}
 							else {
