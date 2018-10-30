@@ -2,7 +2,7 @@ $(document).ready(function () {
 	for (var row = 1; row <= 8; row++) {
 		var col = "";
 		for (var column = 1; column <= 8; column++) {
-			col += "<td class=\"field\" data-pos='" + row + column + "'></td>";
+			col += "<td class='field' data-pos='" + row + column + "' data-figure='wp'></td>";
 		}
 
 		$("#chessboard").append("<tr>" + col + "</tr>");
@@ -27,6 +27,7 @@ $(document).ready(function () {
 		$(this).on("click", function () {
 			var _url = "api/game/";
 			var request;
+			var method; // to know, what type of response to render
 
 			if (firstClick) {
 				firstClick = false;
@@ -34,12 +35,18 @@ $(document).ready(function () {
 
 				_url += "get-available-moves";
 				request = new Field($(this).attr("data-pos"));
+
+				method = "get-moves";
 			}
 			else {
+				$("td").removeClass("available-move");
+
 				firstClick = true;
 				request = new Move(new Field(prevClickedField), new Field($(this).attr("data-pos")));
 
 				_url += "make-a-move";
+
+				method = "make-move";
 			}
 			request = JSON.stringify(request);
 
@@ -50,7 +57,32 @@ $(document).ready(function () {
 				dataType: "json",
 				data: request,
 				success: function (data) {
-					alert(JSON.stringify(data));
+					if (method == "get-moves") {
+						var availableFields = JSON.parse(JSON.stringify(data));
+						var pos;
+						for (var i = 0; i < availableFields.length; i++) {
+							field = availableFields[i];
+							pos = field.X.toString() + field.Y.toString();
+							$("td[data-pos=" + pos + "]").addClass("available-move");
+						}
+					}
+					else if (method = "make-move") {
+						var availableFields = JSON.parse(JSON.stringify(data));
+						var pos;
+						var fig;
+						for (var i = 0; i < availableFields.length; i++) {
+							change = availableFields[i];
+							pos = change.Field.X.toString() + change.Field.Y.toString();
+							if (change.PopulateBy) {
+								fig = change.PopulateBy.toLowerCase();
+							}
+							else {
+								fig = "na";
+							}
+							$("td[data-pos=" + pos + "]").attr("data-figure", fig);
+
+						}
+					}
 				},
 				failure: function (data) {
 					alert("shit");
