@@ -11,8 +11,8 @@ namespace Chess_logic_testing
     {
         static bool IsValid(Move m,Board ChessBoard)
         { 
-            if (!ChessBoard.GetChessBoard().Exists(x => x.F.X == m.From.X && x.F.Y == m.From.Y)) return false; //validates if piece exists at desired from field
-            if (!ChessBoard.GetAvailableMoves(ChessBoard.GetChessBoard().Find(x => x.F.X == m.From.X && x.F.Y == m.From.Y)).Exists(x => x.To.X == m.To.X && x.To.Y == m.To.Y)) return false; //validates if move is possible
+            if (!ChessBoard.GetChessBoard().Exists(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y)) return false; //validates if piece exists at desired from field
+            if (!ChessBoard.GetAvailableMoves(ChessBoard.GetChessBoard().Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y)).Exists(x => x.To.X == m.To.X && x.To.Y == m.To.Y)) return false; //validates if move is possible
             return true;
         }
         static Board newBoard()
@@ -67,7 +67,7 @@ namespace Chess_logic_testing
         {
             Board ChessBoard = newBoard();
             Console.WriteLine(ChessBoard.ToString());
-            Console.WriteLine(ChessBoard.ListToString(ChessBoard.GetAvailableMoves(ChessBoard.GetChessBoard().Find (x=>x.F.X == 5 && x.F.Y == 8))));
+            Console.WriteLine(ChessBoard.ListToString(ChessBoard.GetAvailableMoves(ChessBoard.GetChessBoard().Find (x=>x.Field.X == 5 && x.Field.Y == 8))));
         }
     }
 }

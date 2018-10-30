@@ -61,28 +61,28 @@ namespace FeriChess.Models
             Field newField;
             if (p.Color)//white
             {
-                if (p.F.X + 1 <= 8 && p.F.Y + 1 <= 8)
+                if (p.Field.X + 1 <= 8 && p.Field.Y + 1 <= 8)
                 {
-                    newField = new Field(p.F.X + 1, p.F.Y + 1);
-                    AvailableMoves.Add(new Move(p.F, newField));
+                    newField = new Field(p.Field.X + 1, p.Field.Y + 1);
+                    AvailableMoves.Add(new Move(p.Field, newField));
                 }
-                if (p.F.X - 1 > 0 && p.F.Y + 1 <= 8)
+                if (p.Field.X - 1 > 0 && p.Field.Y + 1 <= 8)
                 {
-                    newField = new Field(p.F.X - 1, p.F.Y + 1);
-                    AvailableMoves.Add(new Move(p.F, newField));
+                    newField = new Field(p.Field.X - 1, p.Field.Y + 1);
+                    AvailableMoves.Add(new Move(p.Field, newField));
                 }
             }
             else //black
             {
-                if (p.F.X + 1 <= 8 && p.F.Y - 1 > 0)
+                if (p.Field.X + 1 <= 8 && p.Field.Y - 1 > 0)
                 {
-                    newField = new Field(p.F.X + 1, p.F.Y - 1);
-                    AvailableMoves.Add(new Move(p.F, newField));
+                    newField = new Field(p.Field.X + 1, p.Field.Y - 1);
+                    AvailableMoves.Add(new Move(p.Field, newField));
                 }
-                if (p.F.X -1 > 0 && p.F.Y - 1 > 0)
+                if (p.Field.X -1 > 0 && p.Field.Y - 1 > 0)
                 {
-                    newField = new Field(p.F.X - 1, p.F.Y - 1);
-                    AvailableMoves.Add(new Move(p.F, newField));
+                    newField = new Field(p.Field.X - 1, p.Field.Y - 1);
+                    AvailableMoves.Add(new Move(p.Field, newField));
                 }
             }
             return AvailableMoves;
@@ -95,8 +95,8 @@ namespace FeriChess.Models
                 for(int j = -1; j <= 1; j++)
                 {
                     if (i == 0 && j == 0) continue;
-                    if (p.F.X + i<=8&& p.F.X + i>0&& p.F.Y + j<=8&& p.F.Y + j>0)
-                        moves.Add(new Field(p.F.X+i,p.F.Y+ j));
+                    if (p.Field.X + i<=8&& p.Field.X + i>0&& p.Field.Y + j<=8&& p.Field.Y + j>0)
+                        moves.Add(new Field(p.Field.X+i,p.Field.Y+ j));
                 }
             }
             return moves;
@@ -115,51 +115,51 @@ namespace FeriChess.Models
                 case "":
                     if (p.Color)//white
                     {
-                        if (!ChessBoard.Exists(x => x.F.Y - 1 == p.F.Y && x.F.X == p.F.X))
+                        if (!ChessBoard.Exists(x => x.Field.Y - 1 == p.Field.Y && x.Field.X == p.Field.X))
                         {
-                            newField = new Field(p.F.X, p.F.Y + 1);
-                            AvailableMoves.Add(new Move(p.F, newField)); //move 1
+                            newField = new Field(p.Field.X, p.Field.Y + 1);
+                            AvailableMoves.Add(new Move(p.Field, newField)); //move 1
                         }
-                        if (p.F.Y == 2 && !ChessBoard.Exists(x => x.F.Y - 2 == p.F.Y))
+                        if (p.Field.Y == 2 && !ChessBoard.Exists(x => x.Field.Y - 2 == p.Field.Y))
                         {
-                            newField = new Field(p.F.X, p.F.Y + 2);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X, p.Field.Y + 2);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                         }//move 2
-                        if (ChessBoard.Exists(x => x.F.Y - 1 == p.F.Y && x.F.X - 1 == p.F.X && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y - 1 == p.Field.Y && x.Field.X - 1 == p.Field.X && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X + 1, p.F.Y + 1);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X + 1, p.Field.Y + 1);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }//capture
-                        if (ChessBoard.Exists(x => x.F.Y - 1 == p.F.Y && x.F.X + 1 == p.F.X && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y - 1 == p.Field.Y && x.Field.X + 1 == p.Field.X && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X - 1, p.F.Y + 1);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X - 1, p.Field.Y + 1);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }//capture
                     }
                     else //black
                     {
-                        if (!ChessBoard.Exists(x => x.F.Y + 1 == p.F.Y))
+                        if (!ChessBoard.Exists(x => x.Field.Y + 1 == p.Field.Y))
                         {
-                            newField = new Field(p.F.X, p.F.Y + 1);
-                            AvailableMoves.Add(new Move(p.F, newField)); //move 1
+                            newField = new Field(p.Field.X, p.Field.Y + 1);
+                            AvailableMoves.Add(new Move(p.Field, newField)); //move 1
                         }
-                        if (p.F.Y == 7 && !ChessBoard.Exists(x => x.F.Y + 2 == p.F.Y))
+                        if (p.Field.Y == 7 && !ChessBoard.Exists(x => x.Field.Y + 2 == p.Field.Y))
                         {
-                            newField = new Field(p.F.X, p.F.Y - 2);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X, p.Field.Y - 2);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                         }//move 2
-                        if (ChessBoard.Exists(x => x.F.Y + 1 == p.F.Y && x.F.X - 1 == p.F.X && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y + 1 == p.Field.Y && x.Field.X - 1 == p.Field.X && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X + 1, p.F.Y - 1);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X + 1, p.Field.Y - 1);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
-                        if (ChessBoard.Exists(x => x.F.Y + 1 == p.F.Y && x.F.X + 1 == p.F.X && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y + 1 == p.Field.Y && x.Field.X + 1 == p.Field.X && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X - 1, p.F.Y - 1);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X - 1, p.Field.Y - 1);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
                     }
@@ -168,324 +168,324 @@ namespace FeriChess.Models
                     CoveredFields = GetNewCoveredFields(!p.Color);
                     foreach(var a in Around(p))
                     {
-                        if (ChessBoard.Exists(x => x.F.X == a.X && x.F.Y == a.Y && x.Color != p.Color) && !Covered(a))
+                        if (ChessBoard.Exists(x => x.Field.X == a.X && x.Field.Y == a.Y && x.Color != p.Color) && !Covered(a))
                         {
-                            AvailableMoves.Add(new Move(p.F, a));
+                            AvailableMoves.Add(new Move(p.Field, a));
                             //todo capture
                         }
-                        else if (ChessBoard.Exists(x => x.F.X == a.X && x.F.Y == a.Y && x.Color != p.Color) && Covered(a)) continue;
-                        AvailableMoves.Add(new Move(p.F, a));
+                        else if (ChessBoard.Exists(x => x.Field.X == a.X && x.Field.Y == a.Y && x.Color != p.Color) && Covered(a)) continue;
+                        AvailableMoves.Add(new Move(p.Field, a));
                     }
 
                     break;
                 case "Q":
-                    for (int i = p.F.Y + 1; i <= 8; i++)
+                    for (int i = p.Field.Y + 1; i <= 8; i++)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == i && x.F.X == p.F.X && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == i && x.Field.X == p.Field.X && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X, i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X, i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             break;
                             //todo capture
                         }
-                        else if (ChessBoard.Exists(x => x.F.Y == i && x.F.X == p.F.X && x.Color == p.Color)) break;
-                        newField = new Field(p.F.X, i);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        else if (ChessBoard.Exists(x => x.Field.Y == i && x.Field.X == p.Field.X && x.Color == p.Color)) break;
+                        newField = new Field(p.Field.X, i);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }//up
-                    for (int i = p.F.Y - 1; i > 0; i--)
+                    for (int i = p.Field.Y - 1; i > 0; i--)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == i && x.F.X == p.F.X && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == i && x.Field.X == p.Field.X && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X, i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X, i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             break;
                             //todo capture
                         }
-                        else if (ChessBoard.Exists(x => x.F.Y == i && x.F.X == p.F.X && x.Color == p.Color)) break;
-                        newField = new Field(p.F.X, i);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        else if (ChessBoard.Exists(x => x.Field.Y == i && x.Field.X == p.Field.X && x.Color == p.Color)) break;
+                        newField = new Field(p.Field.X, i);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }//down
-                    for (int i = p.F.X - 1; i > 0; i--)
+                    for (int i = p.Field.X - 1; i > 0; i--)
                     {
-                        if (ChessBoard.Exists(x => x.F.X == i && x.F.Y == p.F.Y && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.X == i && x.Field.Y == p.Field.Y && x.Color != p.Color))
                         {
-                            newField = new Field(i, p.F.Y);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(i, p.Field.Y);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             break;
                             //todo capture
                         }
-                        else if (ChessBoard.Exists(x => x.F.X == i && x.F.Y == p.F.Y && x.Color == p.Color)) break;
-                        newField = new Field(i, p.F.Y);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        else if (ChessBoard.Exists(x => x.Field.X == i && x.Field.Y == p.Field.Y && x.Color == p.Color)) break;
+                        newField = new Field(i, p.Field.Y);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }//left
-                    for (int i = p.F.X + 1; i <= 8; i++)
+                    for (int i = p.Field.X + 1; i <= 8; i++)
                     {
-                        if (ChessBoard.Exists(x => x.F.X == i && x.F.Y == p.F.Y && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.X == i && x.Field.Y == p.Field.Y && x.Color != p.Color))
                         {
-                            newField = new Field(i, p.F.Y);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(i, p.Field.Y);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             break;
                             //todo capture
                         }
-                        else if (ChessBoard.Exists(x => x.F.X == i && x.F.Y == p.F.Y && x.Color == p.Color)) break;
-                        newField = new Field(i, p.F.Y);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        else if (ChessBoard.Exists(x => x.Field.X == i && x.Field.Y == p.Field.Y && x.Color == p.Color)) break;
+                        newField = new Field(i, p.Field.Y);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }//right
                     for (int i = 1; i <= 8; i++)
                     {
-                        if (p.F.X + i < 8 && p.F.Y + i < 8)
+                        if (p.Field.X + i < 8 && p.Field.Y + i < 8)
                         {
-                            if (ChessBoard.Exists(x => x.F.X == p.F.X + i && x.F.Y == p.F.Y + i && x.Color != p.Color))
+                            if (ChessBoard.Exists(x => x.Field.X == p.Field.X + i && x.Field.Y == p.Field.Y + i && x.Color != p.Color))
                             {
-                                newField = new Field(p.F.X + i, p.F.Y + i);
-                                AvailableMoves.Add(new Move(p.F, newField));
+                                newField = new Field(p.Field.X + i, p.Field.Y + i);
+                                AvailableMoves.Add(new Move(p.Field, newField));
                                 break;
                                 //todo capture
                             }
-                            else if (ChessBoard.Exists(x => x.F.X == p.F.X + i && x.F.Y == p.F.Y + i && x.Color == p.Color)) break;
-                            newField = new Field(p.F.X + i, p.F.Y + i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            else if (ChessBoard.Exists(x => x.Field.X == p.Field.X + i && x.Field.Y == p.Field.Y + i && x.Color == p.Color)) break;
+                            newField = new Field(p.Field.X + i, p.Field.Y + i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                         }//up right
-                        if (p.F.X - i > 0 && p.F.Y + i < 8)
+                        if (p.Field.X - i > 0 && p.Field.Y + i < 8)
                         {
-                            if (ChessBoard.Exists(x => x.F.X == p.F.X - i && x.F.Y == p.F.Y + i && x.Color != p.Color))
+                            if (ChessBoard.Exists(x => x.Field.X == p.Field.X - i && x.Field.Y == p.Field.Y + i && x.Color != p.Color))
                             {
-                                newField = new Field(p.F.X - i, p.F.Y + i);
-                                AvailableMoves.Add(new Move(p.F, newField));
+                                newField = new Field(p.Field.X - i, p.Field.Y + i);
+                                AvailableMoves.Add(new Move(p.Field, newField));
                                 break;
                                 //todo capture
                             }
-                            else if (ChessBoard.Exists(x => x.F.X == p.F.X - i && x.F.Y == p.F.Y + i && x.Color == p.Color)) break;
-                            newField = new Field(p.F.X - i, p.F.Y + i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            else if (ChessBoard.Exists(x => x.Field.X == p.Field.X - i && x.Field.Y == p.Field.Y + i && x.Color == p.Color)) break;
+                            newField = new Field(p.Field.X - i, p.Field.Y + i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                         }//up left
-                        if (p.F.X - i > 0 && p.F.Y - i < 8)
+                        if (p.Field.X - i > 0 && p.Field.Y - i < 8)
                         {
-                            if (ChessBoard.Exists(x => x.F.X == p.F.X - i && x.F.Y == p.F.Y - i && x.Color != p.Color))
+                            if (ChessBoard.Exists(x => x.Field.X == p.Field.X - i && x.Field.Y == p.Field.Y - i && x.Color != p.Color))
                             {
-                                newField = new Field(p.F.X - i, p.F.Y - i);
-                                AvailableMoves.Add(new Move(p.F, newField));
+                                newField = new Field(p.Field.X - i, p.Field.Y - i);
+                                AvailableMoves.Add(new Move(p.Field, newField));
                                 break;
                                 //todo capture
                             }
-                            else if (ChessBoard.Exists(x => x.F.X == p.F.X - i && x.F.Y == p.F.Y - i && x.Color == p.Color)) break;
-                            newField = new Field(p.F.X - i, p.F.Y - i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            else if (ChessBoard.Exists(x => x.Field.X == p.Field.X - i && x.Field.Y == p.Field.Y - i && x.Color == p.Color)) break;
+                            newField = new Field(p.Field.X - i, p.Field.Y - i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                         }//down left
-                        if (p.F.X + i < 8 && p.F.Y - i < 8)
+                        if (p.Field.X + i < 8 && p.Field.Y - i < 8)
                         {
-                            if (ChessBoard.Exists(x => x.F.X == p.F.X + i && x.F.Y == p.F.Y - i && x.Color != p.Color))
+                            if (ChessBoard.Exists(x => x.Field.X == p.Field.X + i && x.Field.Y == p.Field.Y - i && x.Color != p.Color))
                             {
-                                newField = new Field(p.F.X - i, p.F.Y + i);
-                                AvailableMoves.Add(new Move(p.F, newField));
+                                newField = new Field(p.Field.X - i, p.Field.Y + i);
+                                AvailableMoves.Add(new Move(p.Field, newField));
                                 break;
                                 //todo capture
                             }
-                            else if (ChessBoard.Exists(x => x.F.X == p.F.X + i && x.F.Y == p.F.Y - i && x.Color == p.Color)) break;
-                            newField = new Field(p.F.X + i, p.F.Y - i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            else if (ChessBoard.Exists(x => x.Field.X == p.Field.X + i && x.Field.Y == p.Field.Y - i && x.Color == p.Color)) break;
+                            newField = new Field(p.Field.X + i, p.Field.Y - i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                         }//down right
                     }//diagonals
                     break;
                 case "B":
                     for (int i = 1; i <= 8; i++)
                     {
-                        if (p.F.X + i < 8 && p.F.Y + i < 8)
+                        if (p.Field.X + i < 8 && p.Field.Y + i < 8)
                         {
-                            if (ChessBoard.Exists(x => x.F.X == p.F.X + i && x.F.Y == p.F.Y + i && x.Color != p.Color))
+                            if (ChessBoard.Exists(x => x.Field.X == p.Field.X + i && x.Field.Y == p.Field.Y + i && x.Color != p.Color))
                             {
-                                newField = new Field(p.F.X + i, p.F.Y + i);
-                                AvailableMoves.Add(new Move(p.F, newField));
+                                newField = new Field(p.Field.X + i, p.Field.Y + i);
+                                AvailableMoves.Add(new Move(p.Field, newField));
                                 break;
                                 //todo capture
                             }
-                            else if (ChessBoard.Exists(x => x.F.X == p.F.X + i && x.F.Y == p.F.Y + i && x.Color == p.Color)) break;
-                            newField = new Field(p.F.X + i, p.F.Y + i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            else if (ChessBoard.Exists(x => x.Field.X == p.Field.X + i && x.Field.Y == p.Field.Y + i && x.Color == p.Color)) break;
+                            newField = new Field(p.Field.X + i, p.Field.Y + i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                         }//up right
-                        if (p.F.X - i > 0 && p.F.Y + i < 8)
+                        if (p.Field.X - i > 0 && p.Field.Y + i < 8)
                         {
-                            if (ChessBoard.Exists(x => x.F.X == p.F.X - i && x.F.Y == p.F.Y + i && x.Color != p.Color))
+                            if (ChessBoard.Exists(x => x.Field.X == p.Field.X - i && x.Field.Y == p.Field.Y + i && x.Color != p.Color))
                             {
-                                newField = new Field(p.F.X - i, p.F.Y + i);
-                                AvailableMoves.Add(new Move(p.F, newField));
+                                newField = new Field(p.Field.X - i, p.Field.Y + i);
+                                AvailableMoves.Add(new Move(p.Field, newField));
                                 break;
                                 //todo capture
                             }
-                            else if (ChessBoard.Exists(x => x.F.X == p.F.X - i && x.F.Y == p.F.Y + i && x.Color == p.Color)) break;
-                            newField = new Field(p.F.X - i, p.F.Y + i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            else if (ChessBoard.Exists(x => x.Field.X == p.Field.X - i && x.Field.Y == p.Field.Y + i && x.Color == p.Color)) break;
+                            newField = new Field(p.Field.X - i, p.Field.Y + i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                         }//up left
-                        if (p.F.X - i > 0 && p.F.Y - i < 8)
+                        if (p.Field.X - i > 0 && p.Field.Y - i < 8)
                         {
-                            if (ChessBoard.Exists(x => x.F.X == p.F.X - i && x.F.Y == p.F.Y - i && x.Color != p.Color))
+                            if (ChessBoard.Exists(x => x.Field.X == p.Field.X - i && x.Field.Y == p.Field.Y - i && x.Color != p.Color))
                             {
-                                newField = new Field(p.F.X - i, p.F.Y - i);
-                                AvailableMoves.Add(new Move(p.F, newField));
+                                newField = new Field(p.Field.X - i, p.Field.Y - i);
+                                AvailableMoves.Add(new Move(p.Field, newField));
                                 break;
                                 //todo capture
                             }
-                            else if (ChessBoard.Exists(x => x.F.X == p.F.X - i && x.F.Y == p.F.Y - i && x.Color == p.Color)) break;
-                            newField = new Field(p.F.X - i, p.F.Y - i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            else if (ChessBoard.Exists(x => x.Field.X == p.Field.X - i && x.Field.Y == p.Field.Y - i && x.Color == p.Color)) break;
+                            newField = new Field(p.Field.X - i, p.Field.Y - i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                         }//down left
-                        if (p.F.X + i < 8 && p.F.Y - i < 8)
+                        if (p.Field.X + i < 8 && p.Field.Y - i < 8)
                         {
-                            if (ChessBoard.Exists(x => x.F.X == p.F.X + i && x.F.Y == p.F.Y - i && x.Color != p.Color))
+                            if (ChessBoard.Exists(x => x.Field.X == p.Field.X + i && x.Field.Y == p.Field.Y - i && x.Color != p.Color))
                             {
-                                newField = new Field(p.F.X - i, p.F.Y + i);
-                                AvailableMoves.Add(new Move(p.F, newField));
+                                newField = new Field(p.Field.X - i, p.Field.Y + i);
+                                AvailableMoves.Add(new Move(p.Field, newField));
                                 break;
                                 //todo capture
                             }
-                            else if (ChessBoard.Exists(x => x.F.X == p.F.X + i && x.F.Y == p.F.Y - i && x.Color == p.Color)) break;
-                            newField = new Field(p.F.X + i, p.F.Y - i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            else if (ChessBoard.Exists(x => x.Field.X == p.Field.X + i && x.Field.Y == p.Field.Y - i && x.Color == p.Color)) break;
+                            newField = new Field(p.Field.X + i, p.Field.Y - i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                         }//down right
                     }//diagonals
                     break;
                 case "N":
-                    if (p.F.Y + 1 < 8 && p.F.X + 2 < 8)
+                    if (p.Field.Y + 1 < 8 && p.Field.X + 2 < 8)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == p.F.Y + 1 && x.F.X == p.F.X + 2 && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == p.Field.Y + 1 && x.Field.X == p.Field.X + 2 && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X + 2, p.F.Y + 1);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X + 2, p.Field.Y + 1);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
-                        newField = new Field(p.F.X + 2, p.F.Y + 1);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        newField = new Field(p.Field.X + 2, p.Field.Y + 1);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }
-                    if (p.F.Y + 2 < 8 && p.F.X + 1 < 8)
+                    if (p.Field.Y + 2 < 8 && p.Field.X + 1 < 8)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == p.F.Y + 2 && x.F.X == p.F.X + 1 && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == p.Field.Y + 2 && x.Field.X == p.Field.X + 1 && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X + 1, p.F.Y + 2);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X + 1, p.Field.Y + 2);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
-                        newField = new Field(p.F.X + 1, p.F.Y + 2);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        newField = new Field(p.Field.X + 1, p.Field.Y + 2);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }
-                    if (p.F.Y - 2 > 0 && p.F.X + 1 < 8)
+                    if (p.Field.Y - 2 > 0 && p.Field.X + 1 < 8)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == p.F.Y - 2 && x.F.X == p.F.X + 1 && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == p.Field.Y - 2 && x.Field.X == p.Field.X + 1 && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X + 1, p.F.Y - 2);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X + 1, p.Field.Y - 2);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
-                        newField = new Field(p.F.X + 1, p.F.Y - 2);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        newField = new Field(p.Field.X + 1, p.Field.Y - 2);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }
-                    if (p.F.X - 2 > 0 && p.F.Y + 1 < 8)
+                    if (p.Field.X - 2 > 0 && p.Field.Y + 1 < 8)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == p.F.Y + 1 && x.F.X == p.F.X - 2 && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == p.Field.Y + 1 && x.Field.X == p.Field.X - 2 && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X - 2, p.F.Y + 1);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X - 2, p.Field.Y + 1);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
-                        newField = new Field(p.F.X - 2, p.F.Y + 1);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        newField = new Field(p.Field.X - 2, p.Field.Y + 1);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }
-                    if (p.F.X + 2 < 8 && p.F.Y - 1 > 0)
+                    if (p.Field.X + 2 < 8 && p.Field.Y - 1 > 0)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == p.F.Y - 1 && x.F.X == p.F.X + 2 && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == p.Field.Y - 1 && x.Field.X == p.Field.X + 2 && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X + 2, p.F.Y - 1);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X + 2, p.Field.Y - 1);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
-                        newField = new Field(p.F.X + 2, p.F.Y - 1);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        newField = new Field(p.Field.X + 2, p.Field.Y - 1);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }
-                    if (p.F.Y + 2 < 8 && p.F.X - 1 > 0)
+                    if (p.Field.Y + 2 < 8 && p.Field.X - 1 > 0)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == p.F.Y + 2 && x.F.X == p.F.X - 1 && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == p.Field.Y + 2 && x.Field.X == p.Field.X - 1 && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X - 1, p.F.Y + 2);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X - 1, p.Field.Y + 2);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
-                        newField = new Field(p.F.X - 1, p.F.Y + 2);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        newField = new Field(p.Field.X - 1, p.Field.Y + 2);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }
-                    if (p.F.Y - 1 > 0 && p.F.X - 2 > 0)
+                    if (p.Field.Y - 1 > 0 && p.Field.X - 2 > 0)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == p.F.Y - 1 && x.F.X == p.F.X - 2 && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == p.Field.Y - 1 && x.Field.X == p.Field.X - 2 && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X - 2, p.F.Y - 1);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X - 2, p.Field.Y - 1);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
-                        newField = new Field(p.F.X - 2, p.F.Y - 1);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        newField = new Field(p.Field.X - 2, p.Field.Y - 1);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }
-                    if (p.F.Y - 2 > 0 && p.F.X - 1 > 0)
+                    if (p.Field.Y - 2 > 0 && p.Field.X - 1 > 0)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == p.F.Y - 2 && x.F.X == p.F.X - 1 && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == p.Field.Y - 2 && x.Field.X == p.Field.X - 1 && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X - 1, p.F.Y - 2);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X - 1, p.Field.Y - 2);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
-                        newField = new Field(p.F.X - 1, p.F.Y - 2);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        newField = new Field(p.Field.X - 1, p.Field.Y - 2);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }
                     break;
                 case "R":
-                    for (int i = p.F.Y + 1; i <= 8; i++)
+                    for (int i = p.Field.Y + 1; i <= 8; i++)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == i && x.F.X == p.F.X && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == i && x.Field.X == p.Field.X && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X, i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X, i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             break;
                             //todo capture
                         }
-                        else if (ChessBoard.Exists(x => x.F.Y == i && x.F.X == p.F.X && x.Color == p.Color)) break;
-                        newField = new Field(p.F.X, i);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        else if (ChessBoard.Exists(x => x.Field.Y == i && x.Field.X == p.Field.X && x.Color == p.Color)) break;
+                        newField = new Field(p.Field.X, i);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }//up
-                    for (int i = p.F.Y - 1; i > 0; i--)
+                    for (int i = p.Field.Y - 1; i > 0; i--)
                     {
-                        if (ChessBoard.Exists(x => x.F.Y == i && x.F.X == p.F.X && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.Y == i && x.Field.X == p.Field.X && x.Color != p.Color))
                         {
-                            newField = new Field(p.F.X, i);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(p.Field.X, i);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             break;
                             //todo capture
                         }
-                        else if (ChessBoard.Exists(x => x.F.Y == i && x.F.X == p.F.X && x.Color == p.Color)) break;
-                        newField = new Field(p.F.X, i);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        else if (ChessBoard.Exists(x => x.Field.Y == i && x.Field.X == p.Field.X && x.Color == p.Color)) break;
+                        newField = new Field(p.Field.X, i);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }//down
-                    for (int i = p.F.X - 1; i > 0; i--)
+                    for (int i = p.Field.X - 1; i > 0; i--)
                     {
-                        if (ChessBoard.Exists(x => x.F.X == i && x.F.Y == p.F.Y && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.X == i && x.Field.Y == p.Field.Y && x.Color != p.Color))
                         {
-                            newField = new Field(i, p.F.Y);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(i, p.Field.Y);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             break;
                             //todo capture
                         }
-                        else if (ChessBoard.Exists(x => x.F.X == i && x.F.Y == p.F.Y && x.Color == p.Color)) break;
-                        newField = new Field(i, p.F.Y);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        else if (ChessBoard.Exists(x => x.Field.X == i && x.Field.Y == p.Field.Y && x.Color == p.Color)) break;
+                        newField = new Field(i, p.Field.Y);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }//left
-                    for (int i = p.F.X + 1; i <= 8; i++)
+                    for (int i = p.Field.X + 1; i <= 8; i++)
                     {
-                        if (ChessBoard.Exists(x => x.F.X == i && x.F.Y == p.F.Y && x.Color != p.Color))
+                        if (ChessBoard.Exists(x => x.Field.X == i && x.Field.Y == p.Field.Y && x.Color != p.Color))
                         {
-                            newField = new Field(i, p.F.Y);
-                            AvailableMoves.Add(new Move(p.F, newField));
+                            newField = new Field(i, p.Field.Y);
+                            AvailableMoves.Add(new Move(p.Field, newField));
                             break;
                             //todo capture
                         }
-                        else if (ChessBoard.Exists(x => x.F.X == i && x.F.Y == p.F.Y && x.Color == p.Color)) break;
-                        newField = new Field(i, p.F.Y);
-                        AvailableMoves.Add(new Move(p.F, newField));
+                        else if (ChessBoard.Exists(x => x.Field.X == i && x.Field.Y == p.Field.Y && x.Color == p.Color)) break;
+                        newField = new Field(i, p.Field.Y);
+                        AvailableMoves.Add(new Move(p.Field, newField));
                     }//right
                     break;
             }
