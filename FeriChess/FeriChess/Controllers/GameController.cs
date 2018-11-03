@@ -1,4 +1,5 @@
 ﻿using FeriChess.Models;
+using FeriChess.Interfaces;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -8,6 +9,13 @@ namespace FeriChess.Controllers
     [RoutePrefix("api/game")]
     public class GameController : ApiController
     {
+        private IBoardService _boardService { get; set; }
+
+        public GameController(IBoardService boardService)
+        {
+            _boardService = boardService;
+        }
+
         /// <summary>
         /// Accepts Field object on route: api/game/get-available-moves
         /// Returns list of Fields: available moves for client to render

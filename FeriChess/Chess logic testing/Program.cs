@@ -1,23 +1,21 @@
 ﻿using FeriChess.Models;
+using FeriChess.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chess_logic_testing
 {
     class Program
     {
-        static bool IsValid(Move m,Board ChessBoard)
-        { 
+        static bool IsValid(Move m, BoardService ChessBoard)
+        {
             if (!ChessBoard.GetChessBoard().Exists(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y)) return false; //validates if piece exists at desired from field
             if (!ChessBoard.GetAvailableMoves(ChessBoard.GetChessBoard().Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y)).Exists(x => x.To.X == m.To.X && x.To.Y == m.To.Y)) return false; //validates if move is possible
             return true;
         }
-        static Board newBoard()
+        static BoardService newBoard()
         {
-            Board ChessBoard = new Board();
+            BoardService ChessBoard = new BoardService();
             for (int i = 1; i < 9; i++)
             {
                 ChessBoard.AddToChessBoard(new Piece(new Field(i, 2), true, ""));
@@ -25,10 +23,10 @@ namespace Chess_logic_testing
             ChessBoard.AddToChessBoard(new Piece(new Field(5, 8), false, "K"));
             return ChessBoard;
         }
-        static List<Field> GetCoveredFields(Board ChessBoard,bool Color)
+        static List<Field> GetCoveredFields(BoardService ChessBoard, bool Color)
         {
             List<Field> CoveredFields = new List<Field>();
-            foreach(var a in ChessBoard.GetChessBoard())
+            foreach (var a in ChessBoard.GetChessBoard())
             {
                 if (a.Color == Color)
                 {
@@ -65,9 +63,9 @@ namespace Chess_logic_testing
         }
         static void Main(string[] args)
         {
-            Board ChessBoard = newBoard();
+            BoardService ChessBoard = newBoard();
             Console.WriteLine(ChessBoard.ToString());
-            Console.WriteLine(ChessBoard.ListToString(ChessBoard.GetAvailableMoves(ChessBoard.GetChessBoard().Find (x=>x.Field.X == 5 && x.Field.Y == 8))));
+            Console.WriteLine(ChessBoard.ListToString(ChessBoard.GetAvailableMoves(ChessBoard.GetChessBoard().Find(x => x.Field.X == 5 && x.Field.Y == 8))));
         }
     }
 }

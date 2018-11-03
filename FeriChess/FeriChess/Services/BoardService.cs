@@ -1,11 +1,10 @@
-﻿using System;
+﻿using FeriChess.Models;
+using FeriChess.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace FeriChess.Models
+namespace FeriChess.Services
 {
-    public class Board
+    public class BoardService: IBoardService
     {
         public List<Field> CoveredFields = new List<Field>();
         public List<Piece> ChessBoard = new List<Piece>();
@@ -49,9 +48,9 @@ namespace FeriChess.Models
         public override string ToString()
         {
             string s = "";
-            foreach(var a in ChessBoard)
+            foreach (var a in ChessBoard)
             {
-                s += a.ToString()+" ";
+                s += a.ToString() + " ";
             }
             return s;
         }
@@ -79,7 +78,7 @@ namespace FeriChess.Models
                     newField = new Field(p.Field.X + 1, p.Field.Y - 1);
                     AvailableMoves.Add(new Move(p.Field, newField));
                 }
-                if (p.Field.X -1 > 0 && p.Field.Y - 1 > 0)
+                if (p.Field.X - 1 > 0 && p.Field.Y - 1 > 0)
                 {
                     newField = new Field(p.Field.X - 1, p.Field.Y - 1);
                     AvailableMoves.Add(new Move(p.Field, newField));
@@ -90,13 +89,13 @@ namespace FeriChess.Models
         public List<Field> Around(Piece p)
         {
             List<Field> moves = new List<Field>();
-            for(int i = -1; i <= 1; i++)
+            for (int i = -1; i <= 1; i++)
             {
-                for(int j = -1; j <= 1; j++)
+                for (int j = -1; j <= 1; j++)
                 {
                     if (i == 0 && j == 0) continue;
-                    if (p.Field.X + i<=8&& p.Field.X + i>0&& p.Field.Y + j<=8&& p.Field.Y + j>0)
-                        moves.Add(new Field(p.Field.X+i,p.Field.Y+ j));
+                    if (p.Field.X + i <= 8 && p.Field.X + i > 0 && p.Field.Y + j <= 8 && p.Field.Y + j > 0)
+                        moves.Add(new Field(p.Field.X + i, p.Field.Y + j));
                 }
             }
             return moves;
@@ -166,7 +165,7 @@ namespace FeriChess.Models
                     break;
                 case "K":
                     CoveredFields = GetNewCoveredFields(!p.Color);
-                    foreach(var a in Around(p))
+                    foreach (var a in Around(p))
                     {
                         if (ChessBoard.Exists(x => x.Field.X == a.X && x.Field.Y == a.Y && x.Color != p.Color) && !Covered(a))
                         {
@@ -493,10 +492,10 @@ namespace FeriChess.Models
         }
         public string ListToString(List<Move> l)
         {
-            string s="";
-            foreach(var a in l)
+            string s = "";
+            foreach (var a in l)
             {
-                s += a.To.ToString()+"";
+                s += a.To.ToString() + "";
             }
             return s;
         }
