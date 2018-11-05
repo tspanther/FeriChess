@@ -8,8 +8,9 @@ Motivation
 
 For example:
 
-´
+```
 class GameController {
+
     public GameService _gameService;
 
     public GameController() {
@@ -20,8 +21,9 @@ class GameController {
         // do something
         return _gameService.doSomethingForMe(withMyStuff);
     }
+    
 }
-´
+```
 
 ... class GameController now depends on GameService.
 
@@ -41,8 +43,9 @@ In this case, the class we depend on will be injected through a constructor. The
 
 so instead of example above, we will have:
 
-´
+```
 class GameController {
+
     public IGameService _gameService;
 
     public GameController(IGameService _injectedGameServiceImplementation) {
@@ -53,8 +56,9 @@ class GameController {
         // do something
         return _gameService.doSomethingForMe(withMyStuff);
     }
+    
 }
-´
+```
 
 We see that now any class that implements IGameService can now be passed inside a constructor of GameController. What good does the bring?
 
@@ -76,12 +80,12 @@ Added as NuGet package, Ninject generates a file Ninject.Web.Common.cs inside Ap
 
 That way, you will bind the real GameService implementation to IGameService in the project that is "deployed, used" ...
 
-´
+```
 kernel.Bind<IBoardService>().To<BoardService>();
-´
+```
 
 ... and mock implementation MockGameService to IGameService in test project
 
-´
+```
 kernel.Bind<IBoardService>().To<MockBoardService>();
-´
+```
