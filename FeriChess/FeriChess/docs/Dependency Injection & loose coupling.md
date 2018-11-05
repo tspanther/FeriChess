@@ -89,3 +89,12 @@ kernel.Bind<IBoardService>().To<BoardService>();
 ```
 kernel.Bind<IBoardService>().To<MockBoardService>();
 ```
+
+Bonus reading:
+
+https://martinfowler.com/articles/injection.html
+for understanding of concepts, motivation. I learned the "theory" here, or more like "understood, what for IoC techniques are used"
+
+http://www.ninject.org/
+documentation of our awesome ninject framework. nice examples.
+
