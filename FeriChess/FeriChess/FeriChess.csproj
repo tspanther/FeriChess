@@ -209,6 +209,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\MoveRepository.cs" />
     <Compile Include="Services\BoardService.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Models\FieldUpdate.cs" />
