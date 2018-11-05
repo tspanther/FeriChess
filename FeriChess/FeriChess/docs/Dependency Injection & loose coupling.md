@@ -1,4 +1,4 @@
-# Loose coupling
+# Loose coupling & DI
 
 Loose coupling is used for easier simultaneous development (more people working on same project) and easier and more reliant testing.
 
