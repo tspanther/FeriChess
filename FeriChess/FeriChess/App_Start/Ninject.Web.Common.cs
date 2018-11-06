@@ -12,6 +12,7 @@ namespace FeriChess.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
+    using WebApiContrib.IoC.Ninject;
 
     public static class NinjectWebCommon 
     {
@@ -47,6 +48,7 @@ namespace FeriChess.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
                 RegisterServices(kernel);
+                System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver = new NinjectResolver(kernel);
                 return kernel;
             }
             catch
@@ -63,6 +65,6 @@ namespace FeriChess.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IBoardService>().To<BoardService>().InSingletonScope();
-        }        
+        }
     }
 }

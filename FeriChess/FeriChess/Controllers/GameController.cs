@@ -3,13 +3,14 @@ using FeriChess.Interfaces;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Web.Http;
+using FeriChess.Services;
 
 namespace FeriChess.Controllers
 {
     [RoutePrefix("api/game")]
     public class GameController : ApiController
     {
-        private IBoardService _boardService { get; set; }
+        private IBoardService _boardService;
 
         public GameController(IBoardService boardService)
         {

@@ -10,6 +10,7 @@ namespace FeriChess.Tests.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
+    using Ninject.Modules;
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
 
@@ -63,6 +64,15 @@ namespace FeriChess.Tests.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IBoardService>().To<BoardService>().InSingletonScope();
-        }        
+        }
+
+        public class TestModule : NinjectModule
+        {
+            public override void Load()
+            {
+                Bind<IBoardService>().To<BoardService>().InSingletonScope();
+            }
+        }
+
     }
 }
