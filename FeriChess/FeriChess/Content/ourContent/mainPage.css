@@ -1,77 +1,145 @@
-*{
-    margin: 0; 
+* {
+    margin: 0;
     padding: 0;
-  }
-  
-  body {
-      background-color: #f4e1d2;
-  }
-  
-  /* Navbar */
-  ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: #c94c4c;
-  }
-  
-  li {
-      float: left;
-  }
-  
-  li a {
-      display: block;
-      color: white;
-      text-align: center;
-      padding: 10px 16px;
-      text-decoration: none;
-  }
-  
-  li a:hover:not(.active) {
-      color: #000;
-  }
-  
-  .active {
-     color: #000;
-  }
-  
-  
-  /* Chessboard */
-  #chessboard {
-    margin: 50px auto !important; 
+}
+
+body {
+    background-color: #f4e1d2 !important;
+}
+
+/*other tags*/
+a {
+    color: #000 !important;
+    text-decoration: none;
+}
+
+hr {
+    background-color: #000;
+}
+
+.form-textbreak {
+    text-align: center;
+    text-decoration: underline !important;
+}
+
+/* Navbar */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #c94c4c;
+}
+
+li {
+    float: left;
+}
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 10px 16px;
+        text-decoration: none;
+    }
+
+        li a:hover:not(.active) {
+            color: #000;
+        }
+
+.active {
+    color: #000;
+}
+
+
+/* Chessboard */
+#chessboard {
+    margin: 50px auto !important;
     /* padding: 0;  */
-  }
-  
-  table { 
-    border-collapse: collapse; 
-    border-spacing: 0; 
-  }
-  
-  #chessboard { 
-    padding: 0px; 
-    margin: 0 auto; 
-  }
-  
-  #chessboard tr td { 
-    width: 60px; 
-    height: 60px; 
-  }
-  
-  #chessboard tr:nth-child(2n) td:nth-child(2n+1) { 
-    background: #b9936c; 
-  }
-  
-  #chessboard tr:nth-child(2n) td:nth-child(2n) { 
-    background: #dac292; 
-  }
-  
-  #chessboard tr:nth-child(2n+1) td:nth-child(2n) { 
-    background: #b9936c;  
-  }  
-  
-  #chessboard tr:nth-child(2n+1) td:nth-child(2n-1) { 
-     background: #dac292;
-  }
-  
-  
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#chessboard {
+    padding: 0px;
+    margin: 0 auto;
+}
+
+    #chessboard tr td {
+        width: 60px;
+        height: 60px;
+        border: 1px solid transparent;
+    }
+
+    #chessboard tr:nth-child(2n) td:nth-child(2n+1) {
+        background: #b9936c;
+    }
+
+    #chessboard tr:nth-child(2n) td:nth-child(2n) {
+        background: #dac292;
+    }
+
+    #chessboard tr:nth-child(2n+1) td:nth-child(2n) {
+        background: #b9936c;
+    }
+
+    #chessboard tr:nth-child(2n+1) td:nth-child(2n-1) {
+        background: #dac292;
+    }
+
+.available-move {
+    background-color: #5b9aa0 !important;
+}
+
+.selected-field {
+    background-color: #bed7da !important;
+}
+
+/*LogIN*/
+.login-form {
+    width: 340px;
+    margin: 50px auto;
+}
+
+    .login-form form {
+        margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+
+    .login-form h2 {
+        margin: 0 0 15px;
+    }
+
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+
+/*BTN*/
+.btn {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.btn-login {
+    background-color: #f4e1d2;
+}
+
+.btn-signin {
+    background-color: #c94c4c;
+    color: #fff;
+}
+
+/*Icon*/
+.fa-marg {
+    margin: 36%;
+}
+
+.fa-white {
+    color: #fff;
+}
