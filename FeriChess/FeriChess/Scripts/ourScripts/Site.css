@@ -71,6 +71,7 @@ table {
 #chessboard tr td { 
   width: 60px; 
   height: 60px; 
+  border: 1px solid transparent;
 }
 
 #chessboard tr:nth-child(2n) td:nth-child(2n+1) { 
@@ -87,6 +88,14 @@ table {
 
 #chessboard tr:nth-child(2n+1) td:nth-child(2n-1) { 
    background: #dac292;
+}
+
+.availableMove { 
+	background-color: #5b9aa0 !important;
+} 
+
+.clikedField {
+	background-color: #bed7da !important;
 }
 
 /*LogIN*/
@@ -125,5 +134,14 @@ table {
 	background-color: #c94c4c;
 	color:#fff;
 
+}
+
+/*Icon*/
+.fa-marg{
+	margin: 36%;
+}
+
+.fa-white{
+	color:#fff;
 }
 
