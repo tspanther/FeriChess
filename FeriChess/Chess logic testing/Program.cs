@@ -7,12 +7,7 @@ namespace Chess_logic_testing
 {
     class Program
     {
-        static bool IsValid(Move m, BoardService ChessBoard)
-        {
-            if (!ChessBoard.GetChessBoard().Exists(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y)) return false; //validates if piece exists at desired from field
-            if (!ChessBoard.GetAvailableMoves(ChessBoard.GetChessBoard().Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y)).Exists(x => x.To.X == m.To.X && x.To.Y == m.To.Y)) return false; //validates if move is possible
-            return true;
-        }
+
         static BoardService newBoard()
         {
             BoardService ChessBoard = new BoardService();
@@ -20,7 +15,14 @@ namespace Chess_logic_testing
             {
                 ChessBoard.AddToChessBoard(new Piece(new Field(i, 2), true, ""));
             }
-            ChessBoard.AddToChessBoard(new Piece(new Field(5, 8), false, "K"));
+            ChessBoard.AddToChessBoard(new Piece(new Field(1, 1), true, "R"));
+            ChessBoard.AddToChessBoard(new Piece(new Field(8, 1), true, "R"));
+            ChessBoard.AddToChessBoard(new Piece(new Field(2, 1), true, "N"));
+            ChessBoard.AddToChessBoard(new Piece(new Field(7, 1), true, "N"));
+            ChessBoard.AddToChessBoard(new Piece(new Field(3, 1), true, "B"));
+            ChessBoard.AddToChessBoard(new Piece(new Field(6, 1), true, "B"));
+            ChessBoard.AddToChessBoard(new Piece(new Field(3, 1), true, "Q"));
+            ChessBoard.AddToChessBoard(new Piece(new Field(6, 1), true, "K"));
             return ChessBoard;
         }
         static List<Field> GetCoveredFields(BoardService ChessBoard, bool Color)
@@ -61,11 +63,38 @@ namespace Chess_logic_testing
             }
             return s;
         }
+        static int LetterToInt(string s)
+        {
+            int t = s[0];
+            t -= 96;
+            return t;
+        }
         static void Main(string[] args)
         {
-            BoardService ChessBoard = newBoard();
-            Console.WriteLine(ChessBoard.ToString());
-            Console.WriteLine(ChessBoard.ListToString(ChessBoard.GetAvailableMoves(ChessBoard.GetChessBoard().Find(x => x.Field.X == 5 && x.Field.Y == 8))));
+            string input;
+            BoardService ChessBoard = new BoardService();
+            while (true)
+            {
+                Console.WriteLine(ChessBoard.ToString());
+                input = Console.ReadLine();
+                try
+                {
+                    Field moveFrom = new Field(LetterToInt(input.Substring(0, 1)), Int32.Parse(input.Substring(1, 1)));
+                    Console.WriteLine(ChessBoard.ListToString(ChessBoard.GetAvailableMoves(ChessBoard.GetPiece(moveFrom))));
+                    input = Console.ReadLine();
+                    Field moveTo = new Field(LetterToInt(input.Substring(0, 1)), Int32.Parse(input.Substring(1, 1)));
+                    Move move = new Move(moveFrom, moveTo);
+                    if (ChessBoard.IsValid(move))
+                    {
+                        ChessBoard.MakeMove(move);
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("bad input");
+                }
+
+            }
         }
     }
 }
