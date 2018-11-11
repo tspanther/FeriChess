@@ -17,15 +17,14 @@
 // }
 
 $(document).ready(function () {
-    for (var row = 1; row <= 8; row++) {
+    for (var row = 8; row >= 1; row--) {
         var col = "";
         for (var column = 1; column <= 8; column++) {
-            col += "<td class='field' data-pos='" + row + column + "' data-figure='wp'></td>";
+            col += "<td class='field' data-pos='" + column + row + "' data-figure='wp'></td>";
         }
 
         $("#chessboard").append("<tr>" + col + "</tr>");
     }
-
     var firstClick = true;
     var prevClickedField = "";
 

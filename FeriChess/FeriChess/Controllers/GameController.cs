@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Web.Http;
 using FeriChess.Services;
+using System.Linq;
 
 namespace FeriChess.Controllers
 {
@@ -15,6 +16,7 @@ namespace FeriChess.Controllers
         public GameController(IBoardService boardService)
         {
             _boardService = boardService;
+            _boardService.SetStartingPosition();
         }
 
         /// <summary>
@@ -28,12 +30,7 @@ namespace FeriChess.Controllers
         [HttpPost]
         public List<Field> GetAvailableMoves(Field field)
         {
-            var ret = new List<Field>
-            {
-                new Field(3, 3)
-            };
-
-            return ret;
+            return _boardService.GetAvailableMoves(field).Select(m => new Field(m.To.X, m.To.Y)).ToList();
         }
 
         /// <summary>
@@ -45,15 +42,9 @@ namespace FeriChess.Controllers
         /// <returns></returns>
         [Route("make-a-move")]
         [HttpPost]
-        public List<FieldUpdate> MakeAMove(Move move)
+        public bool MakeAMove(Move move)
         {
-            var ret = new List<FieldUpdate>
-            {
-                new FieldUpdate(new Field(1, 1)),
-                new FieldUpdate(new Piece(new Field(1, 2), true, "Queen"))
-            };
-
-            return ret;
+            return _boardService.IsValid(move);
         }
     }
 }
