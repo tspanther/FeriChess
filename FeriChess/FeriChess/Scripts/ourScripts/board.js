@@ -1,22 +1,24 @@
 // function DefaultPositionOfFigures() {
 
-// var player1 = {1:"<i class='fa fa-marg fa-chess-rook'>",2:"<i class='fa fa-marg fa-chess-knight'>", 3:"<i class='fa fa-marg fa-chess-bishop'>",4:"<i class='fa fa-marg fa-chess-queen'>",5:"<i class='fa fa-marg fa-chess-king'>", 6:"<i class='fa fa-marg fa-chess-bishop'>", 7:"<i class='fa fa-marg fa-chess-knight'>",8:"<i class='fa fa-marg fa-chess-rook'>", 9:"<i class='fa fa-marg fa-chess-pawn'>", 10:"<i class='fa fa-marg fa-chess-pawn'>", 11:"<i class='fa fa-marg fa-chess-pawn'>", 12:"<i class='fa fa-marg fa-chess-pawn'>", 13:"<i class='fa fa-marg fa-chess-pawn'>", 14:"<i class='fa fa-marg fa-chess-pawn'>", 15:"<i class='fa fa-marg fa-chess-pawn'>", 16:"<i class='fa fa-marg fa-chess-pawn'>"};
+ // var player1 = {1:"<img id='wrook1' class='figures' src='img/rook_white.svg'/>",2:"<img id='wknight1' class='figures' src='img/knight_white.svg'/>", 3:"<img class='figures' id='wbishop1' src='img/bishop_white.svg'/>",4:"<img class='figures' id='wqueen' src='img/queen_white.svg'/>",5:"<img id='wking' class='figures' src='img/king_white.svg'/>", 6:"<img class='figures' id='wbishop1' src='img/bishop_white.svg'/>", 7:"<img class='figures'id='wknight2' src='img/knight_white.svg'/>",8:"<img class='figures' src='img/rook_white.svg' id='wrook2'/>", 9:"<img class='figures' id='wpaw1' src='img/paw_white.svg'/>", 10:"<img class='figures' id='wpaw2' src='img/paw_white.svg'/>", 11:"<img class='figures' id='wpaw3' src='img/paw_white.svg'/>", 12:"<img class='figures' id='wpaw4' src='img/paw_white.svg'/>", 13:"<img class='figures' id='wpaw5' src='img/paw_white.svg'/>", 14:"<img class='figures' id='wpaw6' src='img/paw_white.svg'/>", 15:"<img class='figures' id='wpaw7' src='img/paw_white.svg'/>", 16:"<img class='figures' id='wpaw8' src='img/paw_white.svg'/>"};
+		
+		// var player2 = {57:"<img class='figures' id='brook1' src='img/rook_black.svg'/>",58:"<img class='figures' id='bknight1' src='img/knight_black.svg'/>", 59:"<img class='figures' id='bbishop1' src='img/bishop_black.svg'/>", 60:"<img class='figures' id='bqueen' src='img/queen_black.svg'/>", 61:"<img class='figures' id='bking' src='img/king_black.svg'/>", 62:"<img class='figures' id='bbishop2' src='img/bishop_black.svg'/>", 63:"<img class='figures' id='bknight2' src='img/knight_black.svg'/>",64:"<img class='figures' src='img/rook_black.svg' id='brook2'/>", 49:"<img class='figures' id='bpaw1' src='img/paw_black.svg'/>", 50:"<img class='figures' id='bpaw2' src='img/paw_black.svg'/>", 51:"<img class='figures' id='bpaw3' src='img/paw_black.svg'/>", 52:"<img class='figures' id='bpaw4' src='img/paw_black.svg'/>", 53:"<img class='figures' id='bpaw5' src='img/paw_black.svg'/>", 54:"<img class='figures' id='bpaw6' src='img/paw_black.svg'/>", 55:"<img class='figures' id='bpaw7' src='img/paw_black.svg'/>", 56:"<img class='figures' id='bpaw8' src='img/paw_black.svg'/>"};
 
-// var player2 = {57:"<i class='fa fa-white fa-marg fa-chess-rook'>",58:"<i class='fa fa-white fa-marg fa-chess-knight'>", 59:"<i class='fa fa-white fa-marg fa-chess-bishop'>", 60:"<i class='fa fa-white fa-marg fa-chess-queen'>", 61:"<i class='fa fa-white fa-marg fa-chess-king'>", 62:"<i class='fa fa-white fa-marg fa-chess-bishop'>", 63:"<i class='fa fa-white fa-marg fa-chess-knight'>",64:"<i class='fa fa-white fa-marg fa-chess-rook'>", 49:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 50:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 51:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 52:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 53:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 54:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 55:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 56:"<i class='fa fa-white fa-marg fa-chess-pawn'>"};
+ // for (position in player1)
+ // {
+ // $('[data-pos="'+position+'"]').html(player1[position]);		 
+ // }
 
-// for (position in player1)
-// {
-// $('[data-pos="'+position+'"]').html(player1[position]);		 
+ // for (position in player2)
+ // {
+ // $('[data-pos="'+position+'"]').html(player2[position]);	
 // }
-
-// for (position in player2)
-// {
-// $('[data-pos="'+position+'"]').html(player2[position]);	
-// }
-
-// }
+ // }
 
 $(document).ready(function () {
+	// BestPlayers();
+	
+	
     for (var row = 8; row >= 1; row--) {
         var col = "";
         for (var column = 1; column <= 8; column++) {
@@ -25,6 +27,13 @@ $(document).ready(function () {
 
         $("#chessboard").append("<tr>" + col + "</tr>");
     }
+	
+	// DefaultPositionOfFigures();
+	
+	$('td').click(function() {
+		$(this).toggleClass('clikedField');
+	});
+	
     var firstClick = true;
     var prevClickedField = "";
 
@@ -114,3 +123,18 @@ $(document).ready(function () {
         });
     });
 });
+
+
+// function BestPlayers() {
+
+	// for(i=0;i<11;i++)
+	// {
+		// $('#bestplayers').append( '<tr>' + 'result' +  i + '</tr>' );
+
+		// for(ii=0;ii<2;ii++)
+		// {
+			// $('#bestplayers').append( '<td>' + 'result' +  i + '</tr>' );
+		// }
+	// }
+
+//}
