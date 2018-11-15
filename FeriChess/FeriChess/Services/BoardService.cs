@@ -1,6 +1,7 @@
 ﻿using FeriChess.Models;
 using FeriChess.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FeriChess.Services
 {
@@ -639,6 +640,11 @@ namespace FeriChess.Services
                 s += a.To.ToString() + " ";
             }
             return s;
+        }
+        public List<FieldUpdate> LoadBoardstate()
+        {
+            BoardService temp = new BoardService();
+            return temp.Chessboard.Select(x => new FieldUpdate(x)).ToList();
         }
     }
 }

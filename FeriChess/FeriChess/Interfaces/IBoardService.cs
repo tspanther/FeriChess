@@ -46,5 +46,7 @@ namespace FeriChess.Interfaces
         /// Sets the chessboard back to it's default position
         /// </summary>
         void SetStartingPosition();
+
+        List<FieldUpdate> LoadBoardstate();
     }
 }

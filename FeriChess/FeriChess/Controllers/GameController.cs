@@ -19,6 +19,17 @@ namespace FeriChess.Controllers
         }
 
         /// <summary>
+        /// Returns an array of populated fields in List of FieldUpdate-s
+        /// </summary>
+        /// <returns></returns>
+        [Route("load-boardstate")]
+        [HttpGet]
+        public List<FieldUpdate> LoadBoardstate()
+        {
+            return _boardService.LoadBoardstate();
+        }
+
+        /// <summary>
         /// Accepts Field object on route: api/game/get-available-moves
         /// Returns list of Fields: available moves for client to render
         /// If no move is available, returns empty list

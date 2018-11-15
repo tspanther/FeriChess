@@ -20,11 +20,41 @@ $(document).ready(function () {
     for (var row = 8; row >= 1; row--) {
         var col = "";
         for (var column = 1; column <= 8; column++) {
-            col += "<td class='field' data-pos='" + column + row + "' data-figure='wp'></td>";
+            col += "<td class='field' data-pos='" + column + row + "' data-figure='na'></td>";
         }
 
         $("#chessboard").append("<tr>" + col + "</tr>");
     }
+
+    $.ajax({
+        type: "GET",
+        url: "api/game/load-boardstate",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            var fieldUpdates = data;
+            var pos;
+            var fig;
+            for (var i = 0; i < fieldUpdates.length; i++) {
+                change = fieldUpdates[i];
+                pos = change.Field.X.toString() + change.Field.Y.toString();
+                if (change.PopulateBy != null) {
+                    fig = change.PopulateBy.toLowerCase();
+                }
+                else {
+                    fig = "na";
+                }
+                $("td[data-pos=" + pos + "]").attr("data-figure", fig);
+            }
+        },
+        failure: function (data) {
+            alert("shit");
+        },
+        error: function (data) {
+            alert("shitshit");
+        }
+    });
+
     var firstClick = true;
     var prevClickedField = "";
 
@@ -78,20 +108,20 @@ $(document).ready(function () {
                 data: request,
                 success: function (data) {
                     if (method == "get-moves") {
-                        var availableFields = data;
+                        var fieldUpdates = data;
                         var pos;
-                        for (var i = 0; i < availableFields.length; i++) {
-                            field = availableFields[i];
+                        for (var i = 0; i < fieldUpdates.length; i++) {
+                            field = fieldUpdates[i];
                             pos = field.X.toString() + field.Y.toString();
                             $("td[data-pos=" + pos + "]").addClass("available-move");
                         }
                     }
                     else if (method = "make-move") {
-                        var availableFields = data;
+                        var fieldUpdates = data;
                         var pos;
                         var fig;
-                        for (var i = 0; i < availableFields.length; i++) {
-                            change = availableFields[i];
+                        for (var i = 0; i < fieldUpdates.length; i++) {
+                            change = fieldUpdates[i];
                             pos = change.Field.X.toString() + change.Field.Y.toString();
                             if (change.PopulateBy != null) {
                                 fig = change.PopulateBy.toLowerCase();
