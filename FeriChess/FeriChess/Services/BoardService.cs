@@ -617,8 +617,8 @@ namespace FeriChess.Services
             {
                 Chessboard.Remove(Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y)); //capture
             }
-            Chessboard.Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y).Field.X = m.To.X;
-            Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.From.Y).Field.Y = m.To.Y;
+            Piece toUpdate = Chessboard.Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y);
+            toUpdate.Field = m.To;
         }
         public bool IsValid(Move m)
         {

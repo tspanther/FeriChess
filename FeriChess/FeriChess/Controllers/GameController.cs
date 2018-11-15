@@ -16,7 +16,6 @@ namespace FeriChess.Controllers
         public GameController(IBoardService boardService)
         {
             _boardService = boardService;
-            _boardService.SetStartingPosition();
         }
 
         /// <summary>
