@@ -3,6 +3,16 @@
     padding: 0;
 }
 
+td[data-figure=wp] {
+    background-image: url("./img/figures/paw_white.svg");
+}
+/*
+to do:
+- make image not repeat itself (one image, decent size etc, middle-centered)
+- make background-color and background-image somehow not cancet out each other
+- write css styles for all other figures
+*/
+
 body {
     background-color: #f4e1d2 !important;
 }
