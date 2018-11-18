@@ -3,16 +3,6 @@
     padding: 0;
 }
 
-td[data-figure=wp] {
-    background-image: url("./img/figures/paw_white.svg");
-}
-/*
-to do:
-- make image not repeat itself (one image, decent size etc, middle-centered)
-- make background-color and background-image somehow not cancet out each other
-- write css styles for all other figures
-*/
-
 body {
     background-color: #f4e1d2 !important;
 }
@@ -152,4 +142,78 @@ table {
 
 .fa-white {
     color: #fff;
+}
+
+/*FIGURES*/
+
+td[data-figure=wp] {
+    background-image: url(./img/figures/paw_white.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=bp] {
+    background-image: url(./img/figures/paw_black.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=wq] {
+    background-image: url(./img/figures/queen_white.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=bq] {
+    background-image: url(./img/figures/queen_black.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=wr] {
+    background-image: url(./img/figures/rook_white.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=br] {
+    background-image: url(./img/figures/rook_black.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=wk] {
+    background-image: url(./img/figures/king_white.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=bk] {
+    background-image: url(./img/figures/king_black.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=wb] {
+    background-image: url(./img/figures/bishop_white.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=bb] {
+    background-image: url(./img/figures/bishop_black.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=wn] {
+    background-image: url(./img/figures/knight_white.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+td[data-figure=bn] {
+    background-image: url(./img/figures/knight_black.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
 }
