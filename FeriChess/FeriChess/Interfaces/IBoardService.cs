@@ -47,6 +47,11 @@ namespace FeriChess.Interfaces
         /// </summary>
         void SetStartingPosition();
 
-        List<FieldUpdate> LoadBoardstate();
+        /// <summary>
+        /// Returns list of updated fields after making a move
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns>list of updated fields after making a move</returns>
+        List<FieldUpdate> GetFieldUpdates(Move m);
     }
 }
