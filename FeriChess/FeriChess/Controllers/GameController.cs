@@ -52,9 +52,10 @@ namespace FeriChess.Controllers
         /// <returns></returns>
         [Route("make-a-move")]
         [HttpPost]
-        public bool MakeAMove(Move move)
+        public List<FieldUpdate> MakeAMove(Move move)
         {
-            return _boardService.IsValid(move);
+            if(_boardService.IsValid(move)) return _boardService.GetFieldUpdates(move);
+            return new List<FieldUpdate>();
         }
     }
 }

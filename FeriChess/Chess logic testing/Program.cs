@@ -17,7 +17,9 @@ namespace Chess_logic_testing
         static void Main(string[] args)
         {
             string input;
-            BoardService ChessBoard = new BoardService();
+            Player p1 = new Player("a", false, 1000, 0);
+            Player p2 = new Player("b", true, 1000, 0);
+            BoardService ChessBoard = new BoardService(p1,p2);
             while (true)
             {
                 Console.WriteLine(ChessBoard.ToString());

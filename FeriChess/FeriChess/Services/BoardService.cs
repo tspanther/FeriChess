@@ -11,6 +11,13 @@ namespace FeriChess.Services
         {
             SetStartingPosition();
         }
+        public BoardService(Player player1, Player player2)
+        {
+            Players.Add(player1);
+            Players.Add(player2);
+            SetStartingPosition();
+        }
+        private List<Player> Players = new List<Player>();
         private List<Field> CoveredFields = new List<Field>();
         private List<Piece> Chessboard = new List<Piece>();
         public void SetStartingPosition()
@@ -151,11 +158,17 @@ namespace FeriChess.Services
             if (CoveredFields.Exists(x => x.X == f.X && x.Y == f.Y)) return true;
             return false;
         }
+        private Player ActivePlayer()
+        {   
+            return Players.Find(x => x.Turn == true);
+        }
         public List<Move> GetAvailableMoves(Field f)
         {
+            if (ActivePlayer().Color != GetPiece(f).Color) return new List<Move>();
             List<Move> AvailableMoves = new List<Move>();
             Field newField;
             Piece p = GetPiece(f);
+            if (CoveredFields.Exists(y => y == Chessboard.Find(x => x.Name == "K" && x.Color == p.Color).Field)) ActivePlayer().InCheck = true;
             switch (p.Name)
             {
                 case "":
@@ -211,7 +224,6 @@ namespace FeriChess.Services
                     }
                     break;
                 case "K":
-                    CoveredFields = GetNewCoveredFields(p.Color);
                     foreach (var a in Around(p))
                     {
                         if (Covered(a)) continue;
@@ -610,16 +622,38 @@ namespace FeriChess.Services
                     }//right
                     break;
             }
+            if (ActivePlayer().InCheck == true)
+            {
+                AvailableMoves=TestIfCheckResolved(AvailableMoves);
+                ActivePlayer().InCheck = false;
+            }
+            return AvailableMoves;
+        }
+        private List<Move> TestIfCheckResolved(List<Move> moves)
+        {
+            List<Move> AvailableMoves = new List<Move>();
+            List<Piece> temp = Chessboard;
+            foreach (var a in moves)
+            {
+                MakeMove(a);
+                if(!Covered(Chessboard.Find(x=>x.Color==ActivePlayer().Color&& x.Name == "K").Field))
+                {
+                    AvailableMoves.Add(a);
+                }
+                Chessboard = temp;
+            }
             return AvailableMoves;
         }
         private void MakeMove(Move m)
         {
+            if (ActivePlayer().Color != Chessboard.Find(x => x.Field.X == m.From.X&&x.Field.Y==m.From.Y).Color) return; //todo premoves
             if (Chessboard.Exists(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y))
             {
                 Chessboard.Remove(Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y)); //capture
             }
-            Piece toUpdate = Chessboard.Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y);
-            toUpdate.Field = m.To;
+            Chessboard.Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y).Field.X = m.To.X;
+            Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.From.Y).Field.Y = m.To.Y;
+            ChangeTurn();
         }
         public bool IsValid(Move m)
         {
@@ -632,6 +666,13 @@ namespace FeriChess.Services
         {
             return Chessboard.Find(x => x.Field.X == f.X && x.Field.Y == f.Y);
         }
+        public List<FieldUpdate> GetFieldUpdates(Move m)
+        {
+            List<FieldUpdate> fields = new List<FieldUpdate>();
+            fields.Add(new FieldUpdate(m.From));
+            fields.Add(new FieldUpdate(GetPiece(m.To)));
+            return fields;
+        }
         public string ListToString(List<Move> l)
         {
             string s = "";
@@ -641,6 +682,12 @@ namespace FeriChess.Services
             }
             return s;
         }
+
+        private void ChangeTurn()
+        {
+            foreach (var a in Players) a.Turn = !a.Turn;
+        }
+
         public List<FieldUpdate> LoadBoardstate()
         {
             BoardService temp = new BoardService();

@@ -15,7 +15,7 @@ namespace FeriChess.Models
                 X = x;
                 Y = y;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 Console.WriteLine("Invalid placement"); //todo
             }
