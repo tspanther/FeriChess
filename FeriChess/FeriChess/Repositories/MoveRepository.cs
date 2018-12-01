@@ -1,5 +1,4 @@
-﻿using FeriChess.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using MySql.Data.MySqlClient;
@@ -9,7 +8,7 @@ namespace FeriChess.Repositories
     /// <summary>
     /// Razred za shranjevanje v in uporabo MySQL baze
     /// primer uporabe
-    /// MoveRepository r = new MoveRepository("localhost", "pi", "FeriChess");
+    /// MoveRepository r = new MoveRepository("creativepowercell.asuscomm.com", "Uporabnik", "FeriChess");
     /// </summary>
     public class MoveRepository
     {
