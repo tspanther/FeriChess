@@ -22,4 +22,4 @@ Plese note that this account has only the permision to use the `SELECT`, `INSERT
 
 ## ER model
 
-![Model](/ERmodel.png)
+![Model](ERmodel.png)
