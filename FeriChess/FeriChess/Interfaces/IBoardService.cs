@@ -53,5 +53,7 @@ namespace FeriChess.Interfaces
         /// <param name="m"></param>
         /// <returns>list of updated fields after making a move</returns>
         List<FieldUpdate> GetFieldUpdates(Move m);
+
+        List<FieldUpdate> LoadBoardstate();
     }
 }

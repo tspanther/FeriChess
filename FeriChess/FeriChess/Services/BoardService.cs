@@ -9,6 +9,8 @@ namespace FeriChess.Services
     {
         public BoardService()
         {
+            Players.Add(new Player("testsubjw", true, 1000000, 0));
+            Players.Add(new Player("testsubjb", false, 1000000, 0));
             SetStartingPosition();
         }
         public BoardService(Player player1, Player player2)
@@ -164,6 +166,7 @@ namespace FeriChess.Services
         }
         public List<Move> GetAvailableMoves(Field f)
         {
+            if (GetPiece(f) == null) return new List<Move>();
             if (ActivePlayer().Color != GetPiece(f).Color) return new List<Move>();
             List<Move> AvailableMoves = new List<Move>();
             Field newField;
