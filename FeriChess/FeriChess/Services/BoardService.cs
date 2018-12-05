@@ -434,7 +434,7 @@ namespace FeriChess.Services
                         {
                             if (Chessboard.Exists(x => x.Field.X == p.Field.X + i && x.Field.Y == p.Field.Y - i && x.Color != p.Color))
                             {
-                                newField = new Field(p.Field.X - i, p.Field.Y + i);
+                                newField = new Field(p.Field.X + i, p.Field.Y - i);
                                 AvailableMoves.Add(new Move(p.Field, newField));
                                 break;
                                 //todo capture
@@ -654,8 +654,9 @@ namespace FeriChess.Services
             {
                 Chessboard.Remove(Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y)); //capture
             }
-            Chessboard.Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y).Field.X = m.To.X;
-            Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.From.Y).Field.Y = m.To.Y;
+            GetPiece(m.From).Field = new Field(m.To.X, m.To.Y);
+            //Chessboard.Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y).Field.X = m.To.X;
+            //Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.From.Y).Field.Y = m.To.Y;
             ChangeTurn();
         }
         public bool IsValid(Move m)
