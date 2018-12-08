@@ -19,6 +19,8 @@ namespace FeriChess.Services
             Players.Add(player2);
             SetStartingPosition();
         }
+        private bool mock = false;
+        private Piece tempPiece=null;
         private List<Player> Players = new List<Player>();
         private List<Field> CoveredFields = new List<Field>();
         private List<Piece> Chessboard = new List<Piece>();
@@ -53,7 +55,8 @@ namespace FeriChess.Services
         private List<Field> GetNewCoveredFields(bool Color)
         {
             List<Field> CoveredFields = new List<Field>();
-            foreach (var a in Chessboard)
+            List<Move> temp;
+            foreach (var a in Chessboard.ToList())
             {
                 if (a.Color != Color)
                 {
@@ -68,7 +71,7 @@ namespace FeriChess.Services
                         }
                         continue;
                     }
-                    else if(a.Name == "K")
+                    else if (a.Name == "K")
                     {
                         foreach (var b in Around(a))
                         {
@@ -78,11 +81,12 @@ namespace FeriChess.Services
                             }
                         }
                     }
-                    else if (GetAvailableMoves(a.Field).Count > 0)
+                    else
                     {
-                        foreach (var b in GetAvailableMoves(a.Field))
+                        temp = GetAvailableMoves(a.Field);
+                        foreach (var b in temp)
                         {
-                            if (!CoveredFields.Exists(x => x.X == b.To.X && x.Y == b.To.Y))
+                            if (!CoveredFields.Exists(x => x==b.To))
                             {
                                 CoveredFields.Add(b.To);
                             }
@@ -164,14 +168,23 @@ namespace FeriChess.Services
         {   
             return Players.Find(x => x.Turn == true);
         }
+        public Field GetKingPos(bool color)
+        {
+            return Chessboard.Find(x => x.Name == "K" && x.Color == color).Field;
+        }
         public List<Move> GetAvailableMoves(Field f)
         {
             if (GetPiece(f) == null) return new List<Move>();
-            if (ActivePlayer().Color != GetPiece(f).Color) return new List<Move>();
+            if (ActivePlayer().Color != GetPiece(f).Color&&mock==false) return new List<Move>();
             List<Move> AvailableMoves = new List<Move>();
             Field newField;
             Piece p = GetPiece(f);
-            if (CoveredFields.Exists(y => y == Chessboard.Find(x => x.Name == "K" && x.Color == p.Color).Field)) ActivePlayer().InCheck = true;
+            Field temp = GetKingPos(p.Color);
+            if (mock == false)
+            {
+                if (Covered(GetKingPos(p.Color))) ActivePlayer().InCheck = true;
+                else ActivePlayer().InCheck = false;
+            }
             switch (p.Name)
             {
                 case "":
@@ -625,27 +638,47 @@ namespace FeriChess.Services
                     }//right
                     break;
             }
-            if (ActivePlayer().InCheck == true)
+            if (ActivePlayer().InCheck == true&&mock==false)
             {
                 AvailableMoves=TestIfCheckResolved(AvailableMoves);
-                ActivePlayer().InCheck = false;
             }
             return AvailableMoves;
         }
         private List<Move> TestIfCheckResolved(List<Move> moves)
         {
+            bool color = ActivePlayer().Color;
             List<Move> AvailableMoves = new List<Move>();
-            List<Piece> temp = Chessboard;
+            List<Field> tempCoveredFields;
+            mock = true;
             foreach (var a in moves)
-            {
-                MakeMove(a);
-                if(!Covered(Chessboard.Find(x=>x.Color==ActivePlayer().Color&& x.Name == "K").Field))
+            { 
+                ActivePlayer().InCheck = true;
+                MockMove(a);
+                tempCoveredFields = GetNewCoveredFields(color);
+                Field f = GetKingPos(color);
+                if (!tempCoveredFields.Exists(x => x.IsSame(f)))
                 {
                     AvailableMoves.Add(a);
                 }
-                Chessboard = temp;
+                MockUnMove(a);
             }
+            mock = false;
             return AvailableMoves;
+        }
+        private void MockMove(Move m)
+        {
+            if (Chessboard.Exists(x => x.Field.IsSame(m.To)))
+            {
+                tempPiece = new Piece(GetPiece(m.To));
+                Chessboard.Remove(Chessboard.Find(x => x==GetPiece(m.To))); //capture
+            }
+            GetPiece(m.From).Field = new Field(m.To.X, m.To.Y);
+        }
+        private void MockUnMove(Move m)
+        {
+            if (tempPiece != null) AddToChessBoard(tempPiece);
+            GetPiece(m.To).Field = new Field(m.From.X, m.From.Y);
+            tempPiece = null;
         }
         private void MakeMove(Move m)
         {
@@ -657,6 +690,8 @@ namespace FeriChess.Services
             GetPiece(m.From).Field = new Field(m.To.X, m.To.Y);
             //Chessboard.Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y).Field.X = m.To.X;
             //Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.From.Y).Field.Y = m.To.Y;
+            CoveredFields = GetNewCoveredFields(!ActivePlayer().Color);
+            if(Covered(GetKingPos(ActivePlayer().Color))) ActivePlayer().InCheck = false;
             ChangeTurn();
         }
         public bool IsValid(Move m)
