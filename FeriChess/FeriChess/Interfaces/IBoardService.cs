@@ -21,6 +21,7 @@ namespace FeriChess.Interfaces
         /// <param name="f"></param>
         /// <returns>List of possible moves</returns>
         List<Move> GetAvailableMoves(Field f);
+        List<FieldUpdate> LoadBoardstate();//to avoid a build error
 
         /// <summary>
         /// Checks if move is valid and executes the move.
