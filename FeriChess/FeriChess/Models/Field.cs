@@ -20,6 +20,11 @@ namespace FeriChess.Models
                 Console.WriteLine("Invalid placement"); //todo
             }
         }
+        public bool IsSame(Field f)
+        {
+            if (f.X == this.X && f.Y == this.Y) return true;
+            return false;
+        }
         public int X { get; set; }
         public int Y { get; set; }
         public override string ToString()
