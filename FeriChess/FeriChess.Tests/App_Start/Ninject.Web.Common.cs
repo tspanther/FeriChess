@@ -63,14 +63,14 @@ namespace FeriChess.Tests.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IBoardService>().To<BoardService>().InSingletonScope();
+            kernel.Bind<IBoardService>().To<MockBoardService>().InSingletonScope();
         }
 
         public class TestModule : NinjectModule
         {
             public override void Load()
             {
-                Bind<IBoardService>().To<BoardService>().InSingletonScope();
+                Bind<IBoardService>().To<MockBoardService>().InSingletonScope();
             }
         }
 
