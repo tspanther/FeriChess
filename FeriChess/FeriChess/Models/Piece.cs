@@ -10,17 +10,20 @@ namespace FeriChess.Models
         public Field Field { get; set; }
         public bool Color { get; set; }
         public string Name { get; set; }
+        public bool Moved { get; set; }
         public Piece(Field f,bool c,string n)
         {
             Field = f;
             Color = c;
             Name = n;
+            Moved = false;
         }
         public Piece(Piece p)
         {
             Field = p.Field;
             Color = p.Color;
             Name = p.Name;
+            Moved = p.Moved;
         }
         public override string ToString()
         {

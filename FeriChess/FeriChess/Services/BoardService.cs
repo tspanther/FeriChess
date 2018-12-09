@@ -19,11 +19,14 @@ namespace FeriChess.Services
             Players.Add(player2);
             SetStartingPosition();
         }
-        private bool mock = false;
+        private bool checkChecking = false;
         private Piece tempPiece=null;
         private List<Player> Players = new List<Player>();
         private List<Field> CoveredFields = new List<Field>();
         private List<Piece> Chessboard = new List<Piece>();
+        private string result;
+        private List<Move> CastleMoves= new List<Move>();
+        private List<Move> MovesDone = new List<Move>();
         public void SetStartingPosition()
         {
             Chessboard = new List<Piece>();
@@ -168,19 +171,35 @@ namespace FeriChess.Services
         {   
             return Players.Find(x => x.Turn == true);
         }
+        private Player InactivePlayer()
+        {
+            return Players.Find(x => x.Turn == false);
+        }
         public Field GetKingPos(bool color)
         {
             return Chessboard.Find(x => x.Name == "K" && x.Color == color).Field;
         }
+        private bool MovesPossible()
+        {
+            foreach (var a in Chessboard.ToList())
+            {
+                if (a.Color != ActivePlayer().Color) continue;
+                if (GetAvailableMoves(a.Field).Count != 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public List<Move> GetAvailableMoves(Field f)
         {
             if (GetPiece(f) == null) return new List<Move>();
-            if (ActivePlayer().Color != GetPiece(f).Color&&mock==false) return new List<Move>();
+            if (ActivePlayer().Color != GetPiece(f).Color&&checkChecking==false) return new List<Move>();
             List<Move> AvailableMoves = new List<Move>();
             Field newField;
             Piece p = GetPiece(f);
             Field temp = GetKingPos(p.Color);
-            if (mock == false)
+            if (checkChecking == false)
             {
                 if (Covered(GetKingPos(p.Color))) ActivePlayer().InCheck = true;
                 else ActivePlayer().InCheck = false;
@@ -251,7 +270,22 @@ namespace FeriChess.Services
                         else if ((Chessboard.Exists(x => x.Field.X == a.X && x.Field.Y == a.Y && x.Color == p.Color))) continue;
                         AvailableMoves.Add(new Move(p.Field, a));
                     }
-
+                    if (p.Moved == false&&ActivePlayer().InCheck==false)
+                    {
+                        CastleMoves = new List<Move>();
+                        Move m = CheckCastleLong();
+                        if (m != null)
+                        {
+                            CastleMoves.Add(m);
+                            AvailableMoves.Add(m);
+                        }
+                        m = CheckCastleShort();
+                        if (m != null)
+                        {
+                            CastleMoves.Add(m);
+                            AvailableMoves.Add(m);
+                        }
+                    }
                     break;
                 case "Q":
                     for (int i = p.Field.Y + 1; i <= 8; i++)
@@ -369,7 +403,7 @@ namespace FeriChess.Services
                         {
                             if (Chessboard.Exists(x => x.Field.X == p.Field.X + i && x.Field.Y == p.Field.Y - i && x.Color != p.Color))
                             {
-                                newField = new Field(p.Field.X - i, p.Field.Y + i);
+                                newField = new Field(p.Field.X + i, p.Field.Y - i);
                                 AvailableMoves.Add(new Move(p.Field, newField));
                                 break;
                                 //todo capture
@@ -638,18 +672,78 @@ namespace FeriChess.Services
                     }//right
                     break;
             }
-            if (ActivePlayer().InCheck == true&&mock==false)
+            if (ActivePlayer().InCheck == true&&checkChecking==false)
             {
                 AvailableMoves=TestIfCheckResolved(AvailableMoves);
             }
             return AvailableMoves;
+        }
+        private bool LineEmptyAndNotCovered(bool color, string which)
+        {
+            Field f = new Field(GetKingPos(color).X,GetKingPos(color).Y);
+            if (which == "right")
+            {
+                for(int i = 0; i < 2; i++)
+                {
+                    f.X++;
+                    if (GetPiece(f) != null || Covered(f) == true) return false;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    f.X--;
+                    if (GetPiece(f) != null || Covered(f) == true) return false;
+                }
+            }
+            return true;
+        }
+        private Move CheckCastleShort()
+        {
+            Field f = GetKingPos(ActivePlayer().Color);
+            Move m = new Move(f, new Field(f.X + 2, f.Y));
+            if (RookMoved(ActivePlayer().Color, "right"))
+            {
+                return null;
+            }
+            if (LineEmptyAndNotCovered(ActivePlayer().Color, "right"))
+            {
+                return m;
+            }
+            return null;
+        }
+        private Move CheckCastleLong()
+        {
+            Field f = GetKingPos(ActivePlayer().Color);
+            Move m = new Move(f,new Field(f.X-2,f.Y));
+            if (RookMoved(ActivePlayer().Color, "left"))
+            {
+                return null;
+            }
+            if (LineEmptyAndNotCovered(ActivePlayer().Color, "left"))
+            {
+                return m;
+            }
+            return null;
+        }
+        private bool RookMoved(bool color,string which)
+        {
+            Field f;
+            if (color == true) f = new Field(1, 1);
+            else f = new Field(1, 8);
+            if (which == "right") f.X = 8;
+            else f.X = 1;
+            Piece p = GetPiece(f);
+            if (p == null || p.Moved == true) return true;
+            return false;
         }
         private List<Move> TestIfCheckResolved(List<Move> moves)
         {
             bool color = ActivePlayer().Color;
             List<Move> AvailableMoves = new List<Move>();
             List<Field> tempCoveredFields;
-            mock = true;
+            checkChecking = true;
             foreach (var a in moves)
             { 
                 ActivePlayer().InCheck = true;
@@ -662,7 +756,7 @@ namespace FeriChess.Services
                 }
                 MockUnMove(a);
             }
-            mock = false;
+            checkChecking = false;
             return AvailableMoves;
         }
         private void MockMove(Move m)
@@ -680,19 +774,34 @@ namespace FeriChess.Services
             GetPiece(m.To).Field = new Field(m.From.X, m.From.Y);
             tempPiece = null;
         }
+        private void MoveRook(Move m)
+        {
+            if (m.To.X == 7 && m.From.Y == 1) GetPiece(new Field(8, 1)).Field = new Field(6, 1);
+            if (m.To.X == 3 && m.From.Y == 1) GetPiece(new Field(1, 1)).Field = new Field(4, 1);
+            if (m.To.X == 7 && m.From.Y == 8) GetPiece(new Field(8, 8)).Field = new Field(6, 8);
+            if (m.To.X == 3 && m.From.Y == 8) GetPiece(new Field(1, 8)).Field = new Field(4, 8);
+        }
         private void MakeMove(Move m)
         {
+            if (GetPiece(m.From).Name == "K") GetPiece(m.From).Moved = true;
+            if (GetPiece(m.From).Name == "R") GetPiece(m.From).Moved = true;
             if (ActivePlayer().Color != Chessboard.Find(x => x.Field.X == m.From.X&&x.Field.Y==m.From.Y).Color) return; //todo premoves
+            if (CastleMoves.Exists(x => x.IsSame(m))) MoveRook(m);
             if (Chessboard.Exists(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y))
             {
                 Chessboard.Remove(Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y)); //capture
             }
-            GetPiece(m.From).Field = new Field(m.To.X, m.To.Y);
-            //Chessboard.Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y).Field.X = m.To.X;
-            //Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.From.Y).Field.Y = m.To.Y;
+            Piece p = GetPiece(m.From);
+            p.Field = new Field(m.To.X, m.To.Y);
             CoveredFields = GetNewCoveredFields(!ActivePlayer().Color);
             if(Covered(GetKingPos(ActivePlayer().Color))) ActivePlayer().InCheck = false;
             ChangeTurn();
+            if (MovesPossible() == false)
+            {
+                if (ActivePlayer().InCheck == true) result = InactivePlayer().Color + " win";
+                else result = "draw";
+            }
+            MovesDone.Add(m);
         }
         public bool IsValid(Move m)
         {
@@ -703,14 +812,45 @@ namespace FeriChess.Services
         }
         private Piece GetPiece(Field f)
         {
-            return Chessboard.Find(x => x.Field.X == f.X && x.Field.Y == f.Y);
+            if (Chessboard.Exists(x => x.Field.X == f.X && x.Field.Y == f.Y)) return Chessboard.Find(x => x.Field.X == f.X && x.Field.Y == f.Y);
+            else return null;
         }
         public List<FieldUpdate> GetFieldUpdates(Move m)
         {
-            List<FieldUpdate> fields = new List<FieldUpdate>();
-            fields.Add(new FieldUpdate(m.From));
-            fields.Add(new FieldUpdate(GetPiece(m.To)));
-            return fields;
+            if (CastleMoves.Exists(x => x.IsSame(m)))
+            {
+                List<FieldUpdate> fields = new List<FieldUpdate>();
+                fields.Add(new FieldUpdate(m.From));
+                fields.Add(new FieldUpdate(GetPiece(m.To)));
+                if (m.To.X == 7 && m.To.Y == 1)
+                {
+                    fields.Add(new FieldUpdate(new Field(8,1)));
+                    fields.Add(new FieldUpdate(GetPiece(new Field(6,1))));
+                }
+                else if (m.To.X == 3 && m.To.Y == 1)
+                {
+                    fields.Add(new FieldUpdate(new Field(1, 1)));
+                    fields.Add(new FieldUpdate(GetPiece(new Field(4, 1))));
+                }
+                else if (m.To.X == 3 && m.To.Y == 8)
+                {
+                    fields.Add(new FieldUpdate(new Field(1, 8)));
+                    fields.Add(new FieldUpdate(GetPiece(new Field(4, 8))));
+                }
+                else if (m.To.X == 7 && m.To.Y == 8)
+                {
+                    fields.Add(new FieldUpdate(new Field(8, 8)));
+                    fields.Add(new FieldUpdate(GetPiece(new Field(6, 8))));
+                }
+                return fields;
+            }
+            else
+            {
+                List<FieldUpdate> fields = new List<FieldUpdate>();
+                fields.Add(new FieldUpdate(m.From));
+                fields.Add(new FieldUpdate(GetPiece(m.To)));
+                return fields;
+            }
         }
         public string ListToString(List<Move> l)
         {

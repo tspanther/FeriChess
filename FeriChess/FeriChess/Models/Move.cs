@@ -14,5 +14,10 @@ namespace FeriChess.Models
         }
         public Field From { get; set; }
         public Field To { get; set; }
+        public bool IsSame(Move m)
+        {
+            if (From.IsSame(m.From) && To.IsSame(m.To)) return true;
+            return false;
+        }
     }
 }
