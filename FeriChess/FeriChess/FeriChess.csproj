@@ -225,6 +225,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GameDisplayController.cs" />
+    <Compile Include="Controllers\LandingPageController.cs" />
     <Compile Include="Controllers\LearnDisplayController.cs" />
     <Compile Include="Controllers\LoginDisplayController.cs" />
     <Compile Include="Controllers\StatisticsDisplayController.cs" />
@@ -248,7 +249,24 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ourContent\img\figures\bishop_black.svg" />
+    <Content Include="Content\ourContent\img\figures\bishop_white.svg" />
+    <Content Include="Content\ourContent\img\figures\king_black.svg" />
+    <Content Include="Content\ourContent\img\figures\king_white.svg" />
+    <Content Include="Content\ourContent\img\figures\knight_black.svg" />
+    <Content Include="Content\ourContent\img\figures\knight_white.svg" />
+    <Content Include="Content\ourContent\img\figures\paw_black.svg" />
+    <Content Include="Content\ourContent\img\figures\paw_white.svg" />
+    <Content Include="Content\ourContent\img\figures\queen_black.svg" />
+    <Content Include="Content\ourContent\img\figures\queen_white.svg" />
+    <Content Include="Content\ourContent\img\figures\rook_black.svg" />
+    <Content Include="Content\ourContent\img\figures\rook_white.svg" />
     <Content Include="Content\ourContent\mainPage.css" />
+    <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\css\stylish-portfolio.css" />
+    <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\img\backgrund.jpg" />
+    <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\index.html" />
+    <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\js\stylish-portfolio.js" />
+    <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\vendor\jquery\jquery.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -304,6 +322,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Repositories\Interfaces\" />
+    <Folder Include="Views\LandingPage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
