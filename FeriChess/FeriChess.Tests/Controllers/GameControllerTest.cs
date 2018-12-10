@@ -28,16 +28,14 @@ namespace FeriChess.Tests.Controllers
         }
 
         [TestMethod]
-        public void MakeAMoveResponseIsListOfFieldUpdates()
+        public void MakeAMoveResponseIsGamestateChangeObject()
         {
             var controller = kernel.Get<GameController>();
 
             var resp = controller.MakeAMove(new Move(new Field(1, 2), new Field(1, 2)));
 
             Assert.IsNotNull(resp);
-            Assert.IsTrue(resp.GetType().IsGenericType);
-            Assert.AreEqual(resp.GetType().GetGenericTypeDefinition(), typeof(List<>));
-            Assert.AreEqual(resp.GetType().GetGenericArguments().Single(), typeof(FieldUpdate));
+            Assert.IsInstanceOfType(resp, typeof(GamestateChange));
         }
 
         [TestMethod]
