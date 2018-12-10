@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FeriChess.Services
 {
-    public class BoardService: IBoardService
+    public class BoardService : IBoardService
     {
         public BoardService()
         {
@@ -18,6 +18,33 @@ namespace FeriChess.Services
             Players.Add(player1);
             Players.Add(player2);
             SetStartingPosition();
+        }
+        public void SetCustomPosition(string s)
+        {
+            Chessboard = new List<Piece>();
+            string[] pieces = s.Split(',');
+            foreach (var a in pieces)
+            {
+                Chessboard.Add(new Piece(new Field(a[2],a[3]-'0'),a[0]==1?true:false,a[1].ToString()));
+            }
+        }
+        public string MovesToString()
+        {
+            string s="";
+            foreach(Move a in MovesDone)
+            {
+                s += a.ToString() + ',';
+            }
+            return s;
+        }
+        public string GameStateToString()
+        {
+            string s="";
+            foreach(var a in Chessboard)
+            {
+                s += a.ToString() + ',';
+            }
+            return s;
         }
         private bool checkChecking = false;
         private Piece tempPiece=null;

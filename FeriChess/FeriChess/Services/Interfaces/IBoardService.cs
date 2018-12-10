@@ -55,5 +55,16 @@ namespace FeriChess.Interfaces
         /// <param name="m"></param>
         /// <returns>list of updated fields after making a move</returns>
         GamestateChange GetFieldUpdates(Move m);
+
+        /// <summary>
+        /// Accepts a string of piece.ToString() pieces and sets them on an empty board.
+        /// </summary>
+        /// <param name="s"></param>
+        void SetCustomPosition(string s);
+        /// <summary>
+        /// Saves the current placement of pieces on the board.
+        /// </summary>
+        /// <returns>string of Piece.ToStrings</returns>
+        string GameStateToString();
     }
 }

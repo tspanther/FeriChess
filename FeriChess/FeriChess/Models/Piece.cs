@@ -34,8 +34,8 @@ namespace FeriChess.Models
         public override string ToString()
         {
             string s = "";
-            if (Color) s += "white";
-            else s += "black";
+            if (Color) s += "1";
+            else s += "0";
             s += Name + Field.ToString();
             return s;
         }
