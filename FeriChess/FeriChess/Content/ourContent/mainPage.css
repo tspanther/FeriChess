@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: #f4e1d2 !important;
+    background-color: #8ca3a3 !important;
 }
 
 /*other tags*/
@@ -23,39 +23,37 @@ hr {
 }
 
 /* Navbar */
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #c94c4c;
+.navbar-inverse {
+    background-color: #484f4f !important;
+    border-color: #484f4f !important;
 }
 
-li {
-    float: left;
+.navbar-inverse .navbar-nav > li > a {
+    background-color: #484f4f !important;
+    border-color: #484f4f !important;
+    color: #fff !important;
 }
 
-    li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 10px 16px;
-        text-decoration: none;
-    }
-
-        li a:hover:not(.active) {
-            color: #000;
-        }
-
-.active {
-    color: #000;
+.navbar-nav > li {
+    background-color: #484f4f !important;
+    border-color: #484f4f !important;
+    color: #fff !important;
 }
 
+.navbar-nav {
+    background-color: #484f4f !important;
+    border-color: #484f4f !important;
+    color: #fff !important;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #fff !important;
+}
 
 /* Chessboard */
 #chessboard {
     margin: 50px auto !important;
-    /* padding: 0;  */
+    margin-top: 90px !important;
 }
 
 table {
@@ -75,27 +73,27 @@ table {
     }
 
     #chessboard tr:nth-child(2n) td:nth-child(2n+1) {
-        background: #b9936c;
+        background: #616b6b;
     }
 
     #chessboard tr:nth-child(2n) td:nth-child(2n) {
-        background: #dac292;
+        background: #afb6b6;
     }
 
     #chessboard tr:nth-child(2n+1) td:nth-child(2n) {
-        background: #b9936c;
+        background: #616b6b;
     }
 
     #chessboard tr:nth-child(2n+1) td:nth-child(2n-1) {
-        background: #dac292;
+        background: #afb6b6;
     }
 
 .available-move {
-    background-color: #5b9aa0 !important;
+    background-color: #563f46 !important;
 }
 
 .selected-field {
-    background-color: #bed7da !important;
+    border: 2px solid #000 !important;
 }
 
 /*Message Board*/
@@ -105,11 +103,13 @@ table {
 /*GamePage*/
 .textbox {
     margin: 200px auto !important;
+    margin-top: -1px !important;
+    margin-bottom: -90px !important;
     height: 200px;
     width: 400px;
     background-color: white;
-    border: 2px solid #c94c4c;
-    overflow:auto;
+    border: 2px solid #563f46;
+    overflow: auto;
 }
 
 
