@@ -108,16 +108,16 @@ $(document).ready(function () {
                 data: request,
                 success: function (data) {
                     if (method == "get-moves") {
-                        var fieldUpdates = data;
+                        var fields = data;
                         var pos;
-                        for (var i = 0; i < fieldUpdates.length; i++) {
-                            field = fieldUpdates[i];
+                        for (var i = 0; i < fields.length; i++) {
+                            field = fields[i];
                             pos = field.X.toString() + field.Y.toString();
                             $("td[data-pos=" + pos + "]").addClass("available-move");
                         }
                     }
                     else if (method = "make-move") {
-                        var fieldUpdates = data;
+                        var fieldUpdates = data.UpdateFields;
                         var pos;
                         var fig;
                         for (var i = 0; i < fieldUpdates.length; i++) {
@@ -130,7 +130,10 @@ $(document).ready(function () {
                                 fig = "na";
                             }
                             $("td[data-pos=" + pos + "]").attr("data-figure", fig);
-
+                        }
+                        var gameResult = data.GameResult;
+                        if (gameResult!="") {
+                            alert(gameResult);
                         }
                     }
                 },
