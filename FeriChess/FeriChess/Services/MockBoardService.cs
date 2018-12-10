@@ -18,13 +18,17 @@ namespace FeriChess.Services
             return ret;
         }
 
-        public List<FieldUpdate> GetFieldUpdates(Move m)
+        public GamestateChange GetFieldUpdates(Move m)
         {
             var ret = new List<FieldUpdate>
             {
                 new FieldUpdate(new Field(1, 2))
             };
-            return ret;
+            return new GamestateChange
+            {
+                UpdateFields = ret,
+                GameResult = ""
+            };
         }
 
         public bool IsValid(Move m)
