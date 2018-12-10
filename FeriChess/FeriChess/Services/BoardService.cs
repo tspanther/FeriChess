@@ -24,7 +24,7 @@ namespace FeriChess.Services
         private List<Player> Players = new List<Player>();
         private List<Field> CoveredFields = new List<Field>();
         private List<Piece> Chessboard = new List<Piece>();
-        private string result;
+        private string result = "";
         private List<Move> CastleMoves= new List<Move>();
         private List<Move> MovesDone = new List<Move>();
         public void SetStartingPosition()
@@ -798,7 +798,7 @@ namespace FeriChess.Services
             ChangeTurn();
             if (MovesPossible() == false)
             {
-                if (ActivePlayer().InCheck == true) result = InactivePlayer().Color + " win";
+                if (ActivePlayer().InCheck == true) result = (InactivePlayer().Color ? "white" : "black") + " wins";
                 else result = "draw";
             }
             MovesDone.Add(m);
@@ -815,7 +815,7 @@ namespace FeriChess.Services
             if (Chessboard.Exists(x => x.Field.X == f.X && x.Field.Y == f.Y)) return Chessboard.Find(x => x.Field.X == f.X && x.Field.Y == f.Y);
             else return null;
         }
-        public List<FieldUpdate> GetFieldUpdates(Move m)
+        public GamestateChange GetFieldUpdates(Move m)
         {
             if (CastleMoves.Exists(x => x.IsSame(m)))
             {
@@ -842,14 +842,22 @@ namespace FeriChess.Services
                     fields.Add(new FieldUpdate(new Field(8, 8)));
                     fields.Add(new FieldUpdate(GetPiece(new Field(6, 8))));
                 }
-                return fields;
+                return new GamestateChange
+                {
+                    UpdateFields = fields,
+                    GameResult = result
+                };
             }
             else
             {
                 List<FieldUpdate> fields = new List<FieldUpdate>();
                 fields.Add(new FieldUpdate(m.From));
                 fields.Add(new FieldUpdate(GetPiece(m.To)));
-                return fields;
+                return new GamestateChange
+                {
+                    UpdateFields = fields,
+                    GameResult = result
+                };
             }
         }
         public string ListToString(List<Move> l)
