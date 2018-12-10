@@ -232,6 +232,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\GamestateChange.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Repositories\MoveRepository.cs" />
     <Compile Include="Services\BoardService.cs" />
@@ -264,7 +265,7 @@
     <Content Include="Content\ourContent\mainPage.css" />
     <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\css\stylish-portfolio.css" />
     <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\img\backgrund.jpg" />
-    <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\index.html" />
+    <None Include="Views\LandingPage\Index.cshtml" />
     <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\js\stylish-portfolio.js" />
     <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\vendor\jquery\jquery.js" />
     <Content Include="favicon.ico" />
@@ -322,7 +323,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Repositories\Interfaces\" />
-    <Folder Include="Views\LandingPage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
