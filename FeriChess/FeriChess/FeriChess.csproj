@@ -229,6 +229,7 @@
     <Compile Include="Controllers\LearnDisplayController.cs" />
     <Compile Include="Controllers\LoginDisplayController.cs" />
     <Compile Include="Controllers\StatisticsDisplayController.cs" />
+    <Compile Include="EngineCommunicator\EngineCommunicator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -268,6 +269,7 @@
     <None Include="Views\LandingPage\Index.cshtml" />
     <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\js\stylish-portfolio.js" />
     <Content Include="Content\TemplateHomePage\startbootstrap-stylish-portfolio-gh-pages\vendor\jquery\jquery.js" />
+    <Content Include="EngineCommunicator\stockfish_10_x64.exe" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
