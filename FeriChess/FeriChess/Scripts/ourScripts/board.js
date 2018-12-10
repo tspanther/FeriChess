@@ -106,8 +106,8 @@ $(document).ready(function () {
                 dataType: "json",
                 data: request,
                 success: function (data) {
-                    if (method == "get-available-moves") {
-                        var fields = data;
+                    if (method == "get-moves") {
+                        var fieldUpdates = data;
                         var pos;
                         for (var i = 0; i < fields.length; i++) {
                             field = fields[i];
@@ -115,7 +115,7 @@ $(document).ready(function () {
                             $("td[data-pos=" + pos + "]").addClass("available-move");
                         }
                     }
-                    else if (method = "make-a-move") {
+                    else if (method = "make-move") {
                         var fieldUpdates = data.UpdateFields;
                         var pos;
                         var fig;
