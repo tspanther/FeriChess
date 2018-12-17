@@ -25,12 +25,12 @@ namespace FeriChess.Models
             Name = p.Name;
             Moved = p.Moved;
         }
-        public Piece(Piece p)
-        {
-            Field = p.Field;
-            Color = p.Color;
-            Name = p.Name;
-        }
+        //public Piece(Piece p)
+        //{
+        //    Field = p.Field;
+        //    Color = p.Color;
+        //    Name = p.Name;
+        //}
         public override string ToString()
         {
             string s = "";

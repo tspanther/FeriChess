@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     <script src="./../../Scripts/ourScripts/board.js"></script>
     <link type="text/css" rel="stylesheet" href="./../../Content/ourContent/mainPage.css" />
-  
+
 </head>
 <body>
     <div class="row">
@@ -17,10 +17,16 @@
 
         <div class="col-lg-6">
             <div class="row">
-                <div style="margin-top: 180px !important; margin-left:110px; margin-bottom:10px"><i class="fa fa-user"></i></div>
+                <div class="firstuser"><p style="font-weight:bold"><i class="fa fa-rightmarg fa-user"></i>MARKO</p></div>
                 <div class="textbox"></div>
-                <div style="margin-top: 100px !important;margin-left:110px; margin-top:10px"><i class="fa fa-user"></i></div>
+                <div class="seconduser"><p style="font-weight:bold"><i class="fa fa-rightmarg fa-user"></i>JANA</p></div>
             </div>
+        </div>
+
+        <div class="checkmate" style="display:none">
+            <p class="winning">Congratulation!!!<br /> Player A Won</p>
+            <div class="before"></div>
+            <div class="after"></div>
         </div>
     </div>
 </body>
