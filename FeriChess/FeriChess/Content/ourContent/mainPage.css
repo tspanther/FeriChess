@@ -29,6 +29,19 @@ hr {
     text-decoration: underline !important;
 }
 
+.logoimg {
+    float: left;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.succeslogtext {
+    font-weight: bold;
+    font-style: italic;
+    padding-left:5px;
+    padding-right:5px;
+}
+
 /* Navbar */
 .navbar-inverse {
     background-color: #484f4f !important;
@@ -453,13 +466,13 @@ table {
     background-color: #c8c3cc;
 }
 
-.signinbtn, .btn-signin {
+.signinbtn, .btn-signin, .btn-backhome {
     background-color: #563f46;
     color: #fff;
     font-weight: bold;
 }
 
-.signinbtn.hover, .signinbtn:hover, .signinbtn:active, .signinbtn.active {
+.signinbtn.hover, .signinbtn:hover, .signinbtn:active, .signinbtn.active, .backhome.hover, .backhome:hover, .backhome:active, .backhome.active {
     color: #fff !important;
 }
 
@@ -468,8 +481,8 @@ table {
     margin: 36%;
 }
 
-.fa-usesize {
-    font-size: 25px;
+.fa-usersize {
+    font-size: 20px;
     /*padding-top: 15px;*/
 }
 
@@ -479,6 +492,10 @@ table {
 
 .fa-rightmarg {
     margin-right: 5px;
+}
+
+.fa-leftmarg {
+    margin-left: 5px;
 }
 
 /*FIGURES*/
@@ -608,40 +625,6 @@ td[data-figure=bn] {
 }
 
 /*DROPDOWN MENU*/
-.dropmenu {
-    float: left;
-    overflow: hidden;
-}
-
-.dropmenu .dropdownmenubtn {
-    font-size: 16px;
-    border: none;
-    outline: none;
-    color: white;
-    padding: 14px 16px;
-    background-color: inherit;
-    font-family: inherit;
-    margin: 0;
-}
-
-.dropmenuitem {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropmenuitem li {
-    float: none;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropmenu:hover .dropmenuitem {
-    display: block;
+.dropdown-divider {
+    border-top: solid 2px #d1d2d4;
 }

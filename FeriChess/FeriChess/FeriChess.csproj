@@ -229,6 +229,7 @@
     <Compile Include="Controllers\LearnDisplayController.cs" />
     <Compile Include="Controllers\LoginDisplayController.cs" />
     <Compile Include="Controllers\StatisticsDisplayController.cs" />
+    <Compile Include="Controllers\SuccessfulLogOutController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="EngineCommunicator\EngineCommunicator.cs" />
     <Compile Include="Global.asax.cs">
@@ -323,6 +324,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\GameDisplay\Index.cshtml" />
     <Content Include="Views\UserProfile\Index.cshtml" />
+    <Content Include="Views\SuccessfulLogOut\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
