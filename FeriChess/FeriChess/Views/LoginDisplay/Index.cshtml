@@ -4,16 +4,23 @@
 <head>
     <title>Play Chess - SignIn</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" charset="utf-8"></script>
-    <script src="site.js"></script>
-    <link type="text/css" rel="stylesheet" href="style.css" />
+    <script src="./../../Scripts/ourScripts/board.js"></script>
+    <link type="text/css" rel="stylesheet"  href="./../../Content/ourContent/mainPage.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
 <body>
+    <div class="row">
+    <div class="col-xs-12 btn-group text-center">
+        <button class="btn loginbtn" id="login-btn">Log In</button>
+        <button class="btn signinbtn" id="signin-btn">Sign In</button>
+    </div>
+</div>
     <!-- LogIn Form -->
-    <div class="login-form">
+    <div class="row">
+    <div class="login-form closeform" id="Login">
         <form action="/examples/actions/confirmation.php" method="post">
             <h2 class="text-center">Log in</h2>
             <div class="form-group">
@@ -23,17 +30,16 @@
                 <input type="password" class="form-control" placeholder="Password" required="required">
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-login btn-block">Log in</button>
+                <button class="btn btn-login btn-block" href="@Url.Action("Index", "GameDisplay")">Log in</button>
             </div>
             <hr>
             <div class="form-group">
-                <button type="submit" class="btn btn-signin btn-block">Sign in</button>
                 <a class="form-textbreak pull-right" href="#">Forgot Password?</a>
             </div>
         </form>
     </div>
     <!-- SignIn Form -->
-    <div class="login-form">
+    <div class="login-form closeform" id="Signin">
         <form action="/examples/actions/confirmation.php" method="post">
             <h2 class="text-center">Sign in</h2>
             <div class="form-group">
@@ -46,9 +52,10 @@
                 <input type="password" class="form-control" placeholder="Password" required="required">
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-signin btn-block">Sign in</button>
+                <button class="btn btn-signin btn-block" href="@Url.Action("Index", "GameDisplay")">Sign in</button>
             </div>
         </form>
     </div>
+   </div>
 </body>
 </html>
