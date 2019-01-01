@@ -17,6 +17,23 @@
 // }
 
 $(document).ready(function () {
+    $("#login-btn").click(function () {
+        if ($("#Login").hasClass("closeform")) {
+            $("#Login").removeClass("closeform").addClass("openform");
+        } else {
+            $("#Login").removeClass("openform").addClass("closeform");
+        }
+    });
+
+    $("#signin-btn").click(function () {
+        if ($("#Signin").hasClass("closeform")) {
+            $("#Signin").removeClass("closeform").addClass("openform");
+        } else {
+            $("#Signin").removeClass("openform").addClass("closeform");
+;
+        }   
+    });
+
     for (var row = 8; row >= 1; row--) {
         var col = "";
         for (var column = 1; column <= 8; column++) {

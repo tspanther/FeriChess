@@ -6,6 +6,8 @@
     <title>@ViewBag.Title</title>
 
     <link type="text/css" rel="stylesheet" href="./../../Content/ourContent/mainPage.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 
     @Styles.Render("~/Content/css")
     @*@Styles.Render("~/Content/ourContent/mainPage.css")*@
@@ -25,12 +27,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Home", "Index", "LandingPage", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Game", "Index", "GameDisplay", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Statistic", "Index", "StatisticsDisplay", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Learn", "Index", "LearnDisplay", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Help", "Index", "Help", new { area = "" }, null)</li>
-                </ul>
+                </ul>     
             </div>
         </div>
     </div>
