@@ -18,15 +18,12 @@ namespace FeriChess.Controllers
             _boardService = boardService;
         }
 
-        /// <summary>
-        /// Returns an array of populated fields in List of FieldUpdate-s
-        /// </summary>
-        /// <returns></returns>
-        [Route("load-boardstate")]
+        [Route("load-boardstate/{id}")]
         [HttpGet]
-        public List<FieldUpdate> LoadBoardstate()
+        public List<FieldUpdate> LoadBoardstate(int id = 0)
         {
-            return _boardService.LoadBoardstate();
+            List<FieldUpdate> ret = _boardService.LoadBoardstate(id);
+            return ret;
         }
 
         /// <summary>
@@ -45,8 +42,7 @@ namespace FeriChess.Controllers
 
         /// <summary>
         /// Accepts Move object on route: api/game/make-a-move
-        /// Returns list of FieldUpdate objects: fields with new values that were changed during the move.
-        /// Returns empty list if move is invalid.
+        /// Returns empty list inside GameStateChange object if move is invalid.
         /// </summary>
         /// <param name="move"></param>
         /// <returns></returns>
@@ -54,7 +50,17 @@ namespace FeriChess.Controllers
         [HttpPost]
         public GamestateChange MakeAMove(Move move)
         {
-            if(_boardService.IsValid(move)) return _boardService.GetFieldUpdates(move);
+            if (_boardService.IsValid(move))
+            {
+                GamestateChange gsc = _boardService.GetFieldUpdates(move);
+                //if (_boardService.isComputerOpponent)
+                //{
+                //    GamestateChange gscE = _boardService.GetFieldUpdates(null);
+                //    gscE.UpdateFields.AddRange(gsc.UpdateFields);
+                //    return gscE;
+                //}
+                return gsc;
+            }
             return new GamestateChange
             {
                 UpdateFields = new List<FieldUpdate>(),

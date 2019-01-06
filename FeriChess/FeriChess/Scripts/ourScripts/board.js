@@ -1,21 +1,3 @@
-// function DefaultPositionOfFigures() {
-
-// var player1 = {1:"<i class='fa fa-marg fa-chess-rook'>",2:"<i class='fa fa-marg fa-chess-knight'>", 3:"<i class='fa fa-marg fa-chess-bishop'>",4:"<i class='fa fa-marg fa-chess-queen'>",5:"<i class='fa fa-marg fa-chess-king'>", 6:"<i class='fa fa-marg fa-chess-bishop'>", 7:"<i class='fa fa-marg fa-chess-knight'>",8:"<i class='fa fa-marg fa-chess-rook'>", 9:"<i class='fa fa-marg fa-chess-pawn'>", 10:"<i class='fa fa-marg fa-chess-pawn'>", 11:"<i class='fa fa-marg fa-chess-pawn'>", 12:"<i class='fa fa-marg fa-chess-pawn'>", 13:"<i class='fa fa-marg fa-chess-pawn'>", 14:"<i class='fa fa-marg fa-chess-pawn'>", 15:"<i class='fa fa-marg fa-chess-pawn'>", 16:"<i class='fa fa-marg fa-chess-pawn'>"};
-
-// var player2 = {57:"<i class='fa fa-white fa-marg fa-chess-rook'>",58:"<i class='fa fa-white fa-marg fa-chess-knight'>", 59:"<i class='fa fa-white fa-marg fa-chess-bishop'>", 60:"<i class='fa fa-white fa-marg fa-chess-queen'>", 61:"<i class='fa fa-white fa-marg fa-chess-king'>", 62:"<i class='fa fa-white fa-marg fa-chess-bishop'>", 63:"<i class='fa fa-white fa-marg fa-chess-knight'>",64:"<i class='fa fa-white fa-marg fa-chess-rook'>", 49:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 50:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 51:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 52:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 53:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 54:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 55:"<i class='fa fa-white fa-marg fa-chess-pawn'>", 56:"<i class='fa fa-white fa-marg fa-chess-pawn'>"};
-
-// for (position in player1)
-// {
-// $('[data-pos="'+position+'"]').html(player1[position]);		 
-// }
-
-// for (position in player2)
-// {
-// $('[data-pos="'+position+'"]').html(player2[position]);	
-// }
-
-// }
-
 $(document).ready(function () {
     for (var row = 8; row >= 1; row--) {
         var col = "";
@@ -28,7 +10,7 @@ $(document).ready(function () {
 
     $.ajax({
         type: "GET",
-        url: "api/game/load-boardstate",
+        url: "api/game/load-boardstate/0",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
@@ -85,7 +67,7 @@ $(document).ready(function () {
                 _url += "get-available-moves";
                 request = new Field($(this).attr("data-pos"));
 
-                method = "get-moves";
+                method = "get-available-moves";
             }
             else {
                 $("td").removeClass("available-move");
@@ -96,7 +78,7 @@ $(document).ready(function () {
 
                 _url += "make-a-move";
 
-                method = "make-move";
+                method = "make-a-move";
             }
             request = JSON.stringify(request);
 
@@ -107,7 +89,7 @@ $(document).ready(function () {
                 dataType: "json",
                 data: request,
                 success: function (data) {
-                    if (method == "get-moves") {
+                    if (method == "get-available-moves") {
                         var fields = data;
                         var pos;
                         for (var i = 0; i < fields.length; i++) {
@@ -116,7 +98,7 @@ $(document).ready(function () {
                             $("td[data-pos=" + pos + "]").addClass("available-move");
                         }
                     }
-                    else if (method = "make-move") {
+                    else if (method = "make-a-move") {
                         var fieldUpdates = data.UpdateFields;
                         var pos;
                         var fig;
@@ -147,3 +129,46 @@ $(document).ready(function () {
         });
     });
 });
+
+function clearBoard(){
+    for (var i=1; i<=8; i++){
+        for (var j=1; j<=8;j++){
+            var pos = "";
+            pos+=i;
+            pos+=j;
+            $("td[data-pos=" + pos + "]").attr("data-figure", "na");
+        }
+    }
+}
+
+function loadcustom(){
+    clearBoard();
+    $.ajax({
+        type: "GET",
+        url: "api/game/load-boardstate/1",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            var fieldUpdates = data;
+            var pos;
+            var fig;
+            for (var i = 0; i < fieldUpdates.length; i++) {
+                change = fieldUpdates[i];
+                pos = change.Field.X.toString() + change.Field.Y.toString();
+                if (change.PopulateBy != null) {
+                    fig = change.PopulateBy.toLowerCase();
+                }
+                else {
+                    fig = "na";
+                }
+                $("td[data-pos=" + pos + "]").attr("data-figure", fig);
+            }
+        },
+        failure: function (data) {
+            alert("shit");
+        },
+        error: function (data) {
+            alert("shitshit");
+        }
+    });
+}
