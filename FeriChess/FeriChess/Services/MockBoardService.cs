@@ -9,6 +9,8 @@ namespace FeriChess.Services
 {
     public class MockBoardService : IBoardService
     {
+        public bool isComputerOpponent { get; set; }
+
         public List<Move> GetAvailableMoves(Field f)
         {
             var ret = new List<Move>
@@ -41,7 +43,7 @@ namespace FeriChess.Services
             return "mock";
         }
 
-        public List<FieldUpdate> LoadBoardstate()
+        public List<FieldUpdate> LoadBoardstate(int id)
         {
             var ret = new List<FieldUpdate>
             {

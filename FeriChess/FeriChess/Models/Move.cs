@@ -19,12 +19,12 @@ namespace FeriChess.Models
             if (From.IsSame(m.From) && To.IsSame(m.To)) return true;
             return false;
         }
-        public Move(string s)
-        {
-            From = new Field(s[0]-'0', s[1]-'0');
-            To = new Field(s[2] - '0', s[3] - '0');
+        //public Move(string s)
+        //{
+        //    From = new Field(s[0]-'0', s[1]-'0');
+        //    To = new Field(s[2] - '0', s[3] - '0');
 
-        }
+        //}
         public override string ToString()
         {
             return From.ToString() + To.ToString();
