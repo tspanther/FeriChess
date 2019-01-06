@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace FeriChess.EngineCommunicator
 {
-    public class EngineCommunicator
+    public class EngineCommunicator: IEngineCommunicator
     {
         private Process StockFishProcess;
         private StreamWriter writer;
@@ -21,7 +22,7 @@ namespace FeriChess.EngineCommunicator
         {
             StockFishProcess = new Process();
             //Path to the file
-            StockFishProcess.StartInfo.FileName = @"~/EngineCommunicator/stockfish_10_x64.exe";
+            StockFishProcess.StartInfo.FileName = @"C:\FeriChess\FeriChess\FeriChess\EngineCommunicator\stockfish_10_x64.exe";
             StockFishProcess.StartInfo.RedirectStandardInput = true;
             StockFishProcess.StartInfo.RedirectStandardOutput = true;
             StockFishProcess.StartInfo.UseShellExecute = false;

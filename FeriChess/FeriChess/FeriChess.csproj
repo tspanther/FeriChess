@@ -230,6 +230,7 @@
     <Compile Include="Controllers\LoginDisplayController.cs" />
     <Compile Include="Controllers\StatisticsDisplayController.cs" />
     <Compile Include="EngineCommunicator\EngineCommunicator.cs" />
+    <Compile Include="EngineCommunicator\IEngineCommunicator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
