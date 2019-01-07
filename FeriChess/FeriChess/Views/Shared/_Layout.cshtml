@@ -6,6 +6,11 @@
     <title>@ViewBag.Title</title>
 
     <link type="text/css" rel="stylesheet" href="./../../Content/ourContent/mainPage.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
 
     @Styles.Render("~/Content/css")
     @*@Styles.Render("~/Content/ourContent/mainPage.css")*@
@@ -21,15 +26,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Wizard Chess", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <img class="logoimg" src="./../../Content/ourContent/img/Logo.svg" alt="Logo img">
+                @Html.ActionLink("Wizard Chess", "Index", "LandingPage", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Game", "Index", "GameDisplay", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Statistic", "Index", "StatisticsDisplay", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Learn", "Index", "LearnDisplay", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Help", "Index", "Help", new { area = "" }, null)</li>
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", "LandingPage", new { area = "" }, null)</li>
+                    <li class="nav-item">@Html.ActionLink("Game", "Index", "GameDisplay", new { area = "" }, null)</li>
+                    <li class="nav-item">@Html.ActionLink("Statistic", "Index", "StatisticsDisplay", new { area = "" }, null)</li>
+                    <li class="nav-item">@Html.ActionLink("Learn", "Index", "LearnDisplay", new { area = "" }, null)</li>
+                    <li class="nav-item">@Html.ActionLink("Help", "Index", "Help", new { area = "" }, null)</li> 
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-usersize fa-user-circle"></i></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="@Url.Action("Index", "UserProfile")"><i class="fas fa-leftmarg fa-rightmarg fa-address-card"></i>User Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="@Url.Action("Index", "SuccessfulLogOut")"><i class="fa fa-leftmarg fa-rightmarg fa-sign-out"></i>Sign out</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

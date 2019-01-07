@@ -18,6 +18,12 @@ namespace FeriChess.Models
             Name = n;
             Moved = false;
         }
+        public bool isSame(Piece p)
+        {
+            if (Field.IsSame(p.Field)) return true;
+            return false;
+        }
+
         public Piece(Piece p)
         {
             Field = p.Field;
@@ -25,11 +31,17 @@ namespace FeriChess.Models
             Name = p.Name;
             Moved = p.Moved;
         }
+        //public Piece(Piece p)
+        //{
+        //    Field = p.Field;
+        //    Color = p.Color;
+        //    Name = p.Name;
+        //}
         public override string ToString()
         {
             string s = "";
-            if (Color) s += "white";
-            else s += "black";
+            if (Color) s += "1";
+            else s += "0";
             s += Name + Field.ToString();
             return s;
         }
