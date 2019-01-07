@@ -8,7 +8,6 @@ namespace Chess_logic_testing
 {
     class Program
     {
-
         static int LetterToInt(string s)
         {
             int t = s[0];

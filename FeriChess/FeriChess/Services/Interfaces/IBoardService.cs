@@ -15,6 +15,8 @@ namespace FeriChess.Interfaces
         //List<Piece> ChessBoard { get; set; }
         // ^ commented out because you still only have fields instead of properties in BoardService implementation
 
+        bool isComputerOpponent { get; set; }
+
         /// <summary>
         /// Gets possible moves for the piece on the selected field
         /// </summary>
@@ -22,7 +24,7 @@ namespace FeriChess.Interfaces
         /// <returns>List of possible moves</returns>
         List<Move> GetAvailableMoves(Field f);
 
-        List<FieldUpdate> LoadBoardstate();
+        List<FieldUpdate> LoadBoardstate(int id);
 
         /// <summary>
         /// Checks if move is valid and executes the move.
@@ -55,5 +57,18 @@ namespace FeriChess.Interfaces
         /// <param name="m"></param>
         /// <returns>list of updated fields after making a move</returns>
         GamestateChange GetFieldUpdates(Move m);
+
+        /// <summary>
+        /// Makes a move on the boardstate
+        /// </summary>
+        /// <param name="move"></param>
+        /// <returns>Change of game's state in GamestateChange object. No change if invalid move</returns>
+        GamestateChange MakeMove(Move move);
+
+        /// <summary>
+        /// Asks engine for a move, makes it and returns change of game state
+        /// </summary>
+        /// <returns>GamestateChange after engine move</returns>
+        GamestateChange RequestEngineMove();
     }
 }
