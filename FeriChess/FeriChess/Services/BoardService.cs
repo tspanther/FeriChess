@@ -46,6 +46,10 @@ namespace FeriChess.Services
             }
             return s;
         }
+        private Piece LastMovedPiece;
+        private bool EnPasantHappened = false;
+        private bool EnPasantPosible=false;
+        private bool CheckPromotion = false;
         private bool checkChecking = false;
         private Piece tempPiece=null;
         private List<Player> Players = new List<Player>();
@@ -81,6 +85,14 @@ namespace FeriChess.Services
             Chessboard.Add(new Piece(new Field(6, 8), false, "B"));
             Chessboard.Add(new Piece(new Field(4, 8), false, "Q"));
             Chessboard.Add(new Piece(new Field(5, 8), false, "K"));
+        }
+        private void MovePromotion(Move m)
+        {
+            string Choice = "Q";
+            Chessboard.Add(new Piece(new Field(m.To.X, m.To.Y), ActivePlayer().Color, Choice));
+            Chessboard.Remove(GetPiece(m.From));
+            CheckPromotion = false;
+            
         }
         private List<Field> GetNewCoveredFields(bool Color)
         {
@@ -220,11 +232,19 @@ namespace FeriChess.Services
         }
         public List<Move> GetAvailableMoves(Field f)
         {
-            if (GetPiece(f) == null) return new List<Move>();
-            if (ActivePlayer().Color != GetPiece(f).Color&&checkChecking==false) return new List<Move>();
+            Piece p = GetPiece(f);
+            try
+            {
+                if (p.Equals(null)) return new List<Move>();
+            }
+            catch
+            {
+                return new List<Move>();
+            }
+            if (ActivePlayer().Color != p.Color&&checkChecking==false) return new List<Move>();
             List<Move> AvailableMoves = new List<Move>();
             Field newField;
-            Piece p = GetPiece(f);
+
             Field temp = GetKingPos(p.Color);
             if (checkChecking == false)
             {
@@ -258,6 +278,18 @@ namespace FeriChess.Services
                             AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }//capture
+                        if (p.Field.Y == 5)
+                        {
+                            Piece foundPawn = Chessboard.Find(x => x.Field.Y == 5 && (x.Field.X == p.Field.X - 1 || x.Field.X == p.Field.X + 1) && x.Color != p.Color && x == LastMovedPiece && x.Name == "");
+                            if (!foundPawn.Equals(null))
+                            {
+                                newField = new Field(foundPawn.Field.X, foundPawn.Field.Y + 1);
+                                AvailableMoves.Add(new Move(p.Field, newField));
+                                EnPasantPosible = true;
+                            }
+                            else EnPasantPosible = false;
+                        }
+                        else EnPasantPosible = false;
                     }
                     else //black
                     {
@@ -283,6 +315,18 @@ namespace FeriChess.Services
                             AvailableMoves.Add(new Move(p.Field, newField));
                             //todo capture
                         }
+                        if (p.Field.Y == 4)
+                        {
+                            Piece foundPawn = Chessboard.Find(x => x.Field.Y == 4 && (x.Field.X == p.Field.X - 1 || x.Field.X == p.Field.X + 1) && x.Color != p.Color && x == LastMovedPiece && x.Name == "");
+                            if (!foundPawn.Equals(null))
+                            {
+                                newField = new Field(foundPawn.Field.X, foundPawn.Field.Y - 1);
+                                AvailableMoves.Add(new Move(p.Field, newField));
+                                EnPasantPosible = true;
+                            }
+                            else EnPasantPosible = false;
+                        }
+                        else EnPasantPosible = false;
                     }
                     break;
                 case "K":
@@ -808,17 +852,30 @@ namespace FeriChess.Services
             if (m.To.X == 7 && m.From.Y == 8) GetPiece(new Field(8, 8)).Field = new Field(6, 8);
             if (m.To.X == 3 && m.From.Y == 8) GetPiece(new Field(1, 8)).Field = new Field(4, 8);
         }
+        private void EnPasant(Move m)
+        {
+            GetPiece(m.From).Field = m.To;
+            Chessboard.Remove(Chessboard.Find(x => x.Field.Y == m.From.Y && x.Field.X == m.To.X));
+            EnPasantPosible = false;
+            EnPasantHappened = true;
+        }
         private void MakeMove(Move m)
         {
-            if (GetPiece(m.From).Name == "K") GetPiece(m.From).Moved = true;
-            if (GetPiece(m.From).Name == "R") GetPiece(m.From).Moved = true;
-            if (ActivePlayer().Color != Chessboard.Find(x => x.Field.X == m.From.X&&x.Field.Y==m.From.Y).Color) return; //todo premoves
+            Piece p = GetPiece(m.From);
+            LastMovedPiece = p;
+            if (p.Name == "" && (m.To.Y == 1 || m.To.Y == 8)) CheckPromotion = true;
+            if (p.Name == "K") p.Moved = true;
+            if (p.Name == "R") p.Moved = true;
+            if (EnPasantPosible&&LastMovedPiece.Name=="") {
+                if (p.Name == "" && m.To.Y != m.From.X&&m.To.X!=m.From.Y&&!Chessboard.Exists(x=>x.Field.X==m.To.X&&x.Field.Y==m.To.Y)) EnPasant(m) ;
+             }
+            //if (ActivePlayer().Color != Chessboard.Find(x => x.Field.X == m.From.X&&x.Field.Y==m.From.Y).Color) return; //todo premoves
             if (CastleMoves.Exists(x => x.IsSame(m))) MoveRook(m);
-            if (Chessboard.Exists(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y))
+            if (Chessboard.Exists(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y&&x.Color!=ActivePlayer().Color))
             {
                 Chessboard.Remove(Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y)); //capture
             }
-            Piece p = GetPiece(m.From);
+            if(CheckPromotion==true) MovePromotion(m);
             p.Field = new Field(m.To.X, m.To.Y);
             CoveredFields = GetNewCoveredFields(!ActivePlayer().Color);
             if(Covered(GetKingPos(ActivePlayer().Color))) ActivePlayer().InCheck = false;
@@ -869,6 +926,19 @@ namespace FeriChess.Services
                     fields.Add(new FieldUpdate(new Field(8, 8)));
                     fields.Add(new FieldUpdate(GetPiece(new Field(6, 8))));
                 }
+                return new GamestateChange
+                {
+                    UpdateFields = fields,
+                    GameResult = result
+                };
+            }
+            else if (EnPasantHappened)
+            {
+                List<FieldUpdate> fields = new List<FieldUpdate>();
+                fields.Add(new FieldUpdate(m.From));
+                fields.Add(new FieldUpdate(GetPiece(m.To)));
+                fields.Add(new FieldUpdate(new Field(m.To.X, m.From.Y)));
+                EnPasantHappened = false;
                 return new GamestateChange
                 {
                     UpdateFields = fields,
