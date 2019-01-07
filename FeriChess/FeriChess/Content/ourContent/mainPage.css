@@ -86,15 +86,15 @@ table {
     margin: 0 auto;
 }
 
-    #chessboard tr td {
-        width: 60px;
-        height: 60px;
-        border: 1px solid transparent;
-    }
+#chessboard tr td {
+    width: 60px;
+    height: 60px;
+    border: 1px solid transparent;
+}
 
-    #chessboard tr:nth-child(2n) td:nth-child(2n+1) {
-        background: #616b6b;
-    }
+#chessboard tr:nth-child(2n) td:nth-child(2n+1) {
+    background: #616b6b;
+}
 
     #chessboard tr:nth-child(2n) td:nth-child(2n) {
         background: #afb6b6;
@@ -116,6 +116,15 @@ table {
     border: 2px solid #000 !important;
 }
 
+th {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
 /*Message Board*/
 
 
@@ -132,6 +141,12 @@ table {
     overflow: auto;
 }
 
+.form-control {
+    margin: 200px auto !important;
+    margin-top: -1px !important;
+    margin-bottom: -90px !important;
+    width: 400px;
+}
 /*GamePage Users*/
 .firstuser {
     margin-top: 180px !important;

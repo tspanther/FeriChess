@@ -30,6 +30,48 @@ namespace FeriChess.Repositories
             }
         }
         /// <summary>
+        /// funkcija ki preveri ali uporabnik obstaja in ali 
+        /// </summary>
+        /// <param name="vzdevek">vzdevek od uporabnika</param>
+        /// <param name="geslo">geslo(hash) od uporabnika</param>
+        /// <returns>vrje true ce je uporabnisko in geslo pravilno drugace vrne false</returns>
+        public bool PreveriUporabnika(string vzdevek, string geslo)
+        {
+            Povezava.Open();
+            bool pravilno = false;
+            string PodatkiUkaza = "SELECT * FROM Igralec WHERE Vzdevek=@Vzdevek AND Geslo=@Geslo";
+            MySqlCommand Ukaz = new MySqlCommand(PodatkiUkaza, Povezava);
+            Ukaz.Parameters.AddWithValue("@Vzdevek", vzdevek);
+            Ukaz.Parameters.AddWithValue("@Geslo", geslo);
+            MySqlDataReader Branje = Ukaz.ExecuteReader();
+            if (Branje.Read())
+            {
+                pravilno = true;
+            }
+            Branje.Close();
+            return pravilno;
+        }
+        /// <summary>
+        /// funkcija, ki preveri ce je uporabniško ime zasedeno
+        /// </summary>
+        /// <param name="vzdevek">zazeljen vzdevek</param>
+        /// <returns>vrje true ce je prosto false ce je zasedeno</returns>
+        public bool PreveriIme(string vzdevek)
+        {
+            bool prosto = false;
+            Povezava.Open();
+            string PodatkiUkaza = "SELECT * FROM Igralec WHERE Vzdevek=@Vzdevek";
+            MySqlCommand Ukaz = new MySqlCommand(PodatkiUkaza, Povezava);
+            Ukaz.Parameters.AddWithValue("@Vzdevek", vzdevek);
+            MySqlDataReader Branje = Ukaz.ExecuteReader();
+            if (Branje.Read())
+            {
+                prosto = true;
+            }
+            Branje.Close();
+            return prosto;
+        }
+        /// <summary>
         /// Funkcija za dodajanje uporabnika v bazo
         /// </summary>
         /// <param name="vzdevek"> Vzdevek, ki ga bo uporabljal uporabnik</param>
@@ -37,6 +79,9 @@ namespace FeriChess.Repositories
         /// <returns></returns>
         public bool DodajIgralca(string vzdevek, string geslo)
         {
+            if (geslo==String.Empty || vzdevek.Length < 1)
+                return false;
+            bool uspesno = true;
             try
             {
                 Povezava.Open();
@@ -48,14 +93,13 @@ namespace FeriChess.Repositories
                 string datum = DateTime.Today.ToString("yyyy-MM-dd").Replace(".", "-");
                 Ukaz.Parameters.AddWithValue("@DanRegistracije", datum);
                 Ukaz.ExecuteNonQuery();
-                Povezava.Close();
-                return true;
             }
             catch (Exception)
             {
-                Povezava.Close();
-                return false;
+                uspesno = false;
             }
+            Povezava.Close();
+            return uspesno;
         }
         /// <summary>
         /// Funkcija za dodajanje rojstnega datuma
@@ -65,6 +109,7 @@ namespace FeriChess.Repositories
         /// <returns>Vrne true ce uspesno spremeni datum rojstva, drugače vrne false</returns>
         public bool DodajRojstniDatum(int IDigralca, string rojstniDatum)
         {
+            bool uspesno = true;
             try
             {
                 Povezava.Open();
@@ -74,14 +119,13 @@ namespace FeriChess.Repositories
                 Ukaz.Parameters.AddWithValue("@RojstniDan", rojstniDatum);
                 Ukaz.Parameters.AddWithValue("@IDigralec", IDigralca);
                 Ukaz.ExecuteNonQuery();
-                Povezava.Close();
-                return true;
             }
             catch (Exception)
             {
-                Povezava.Close();
-                return false;
+                uspesno = false;
             }
+            Povezava.Close();
+            return uspesno;
         }
         /// <summary>
         /// Funkcija za povecanje indeksa odigranih iger
@@ -90,6 +134,7 @@ namespace FeriChess.Repositories
         /// <returns>Vrne true ce uspesno poveca indeks odigranih iger. Drugače vrne false</returns>
         public bool PovecajSteviloIger(int IDigralca)
         {
+            bool uspesno = true;
             try
             {
                 Povezava.Open();
@@ -98,14 +143,13 @@ namespace FeriChess.Repositories
                 Ukaz.CommandTimeout = 10;
                 Ukaz.Parameters.AddWithValue("@IDigralec", IDigralca);
                 Ukaz.ExecuteNonQuery();
-                Povezava.Close();
-                return true;
             }
             catch (Exception)
             {
-                Povezava.Close();
-                return false;
+                uspesno = false;
             }
+            Povezava.Close();
+            return uspesno;
         }
         /// <summary>
         /// Funkcija za dodajanje igre v aplikacije
@@ -117,6 +161,7 @@ namespace FeriChess.Repositories
         /// <returns>Vrne true če uspešno doda igro. Drugače vrne false</returns>
         public bool DodajIgro(int Igralec1ID, int Igralec2ID, int Inc, string Cas)
         {
+            bool uspesno = true;
             try
             {
                 Povezava.Open();
@@ -128,23 +173,23 @@ namespace FeriChess.Repositories
                 Ukaz.Parameters.AddWithValue("@Inc", Inc);
                 Ukaz.Parameters.AddWithValue("@Cas", Cas);
                 Ukaz.ExecuteNonQuery();
-                Povezava.Close();
-                return true;
             }
             catch (Exception)
             {
-                Povezava.Close();
-                return false;
+                uspesno = false;
             }
+            Povezava.Close();
+            return uspesno;
         }
         /// <summary>
         /// Funkcija za dodajanje končnega stanja igre
         /// </summary>
         /// <param name="IDigre"> ID od igre, ki jo želimo dokončati</param>
         /// <param name="KoncnoStanje"> Končno stanje šahovnice</param>
-        /// <returns></returns>
+        /// <returns>vrne false ce je neuspesno</returns>
         public bool NastaviKoncnoStanjeIgre(int IDigre, string KoncnoStanje)
         {
+            bool uspesno = true;
             try
             {
                 Povezava.Open();
@@ -154,14 +199,39 @@ namespace FeriChess.Repositories
                 Ukaz.Parameters.AddWithValue("@KoncnoStanje", KoncnoStanje);
                 Ukaz.Parameters.AddWithValue("@IDigre", IDigre);
                 Ukaz.ExecuteNonQuery();
-                Povezava.Close();
-                return true;
             }
             catch (Exception)
             {
-                Povezava.Close();
-                return false;
+                uspesno = false;
             }
+            Povezava.Close();
+            return uspesno;
+        }
+        /// <summary>
+        /// Funkcija shrani vse poteze v bazo
+        /// </summary>
+        /// <param name="IDigre">kateri igri nastavljamo</param>
+        /// <param name="poteze">vse poteze (Med njimi uporabi za locilni znak _) </param>
+        /// <returns>ce se uspesno izvede vrne true drugace false</returns>
+        public bool ShraniVsePoteze(int IDigre, string poteze)
+        {
+            bool uspesno = true;
+            try
+            {
+                Povezava.Open();
+                string PodatkiUkaza = " UPDATE Igra SET VsePoteze = @VsePoteze WHERE IDigre = @IDigre";
+                MySqlCommand Ukaz = new MySqlCommand(PodatkiUkaza, Povezava);
+                Ukaz.CommandTimeout = 10;
+                Ukaz.Parameters.AddWithValue("@VsePoteze", poteze);
+                Ukaz.Parameters.AddWithValue("@IDigre", IDigre);
+                Ukaz.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                uspesno = false;
+            }
+            Povezava.Close();
+            return uspesno;
         }
         /// <summary>
         /// Funkcija za dodajanje zmagovalca k igri
@@ -171,6 +241,7 @@ namespace FeriChess.Repositories
         /// <returns>Vrne true če uspešno doda igralca, drugače vrne false</returns>
         public bool NastaviZmagovalcaIgre(int IDigre, bool Zmagovalec)
         {
+            bool uspesno = true;
             try
             {
                 Povezava.Open();
@@ -180,42 +251,13 @@ namespace FeriChess.Repositories
                 Ukaz.Parameters.AddWithValue("@Zmagovalec", Zmagovalec);
                 Ukaz.Parameters.AddWithValue("@IDigre", IDigre);
                 Ukaz.ExecuteNonQuery();
-                Povezava.Close();
-                return true;
             }
             catch (Exception)
             {
-                Povezava.Close();
-                return false;
+                uspesno = false;
             }
-        }
-        /// <summary>
-        /// Funkcija za dodajanje  poteze k igri
-        /// </summary>
-        /// <param name="IDigra">ID igre k kateri dodajamo</param>
-        /// <param name="Poteza"> niz poteze, ki jo dodajamo</param>
-        /// <param name="Cas"> čas kako dolgo je trajala poteza HH-MM-SS (ure, minute, sekunde)</param>
-        /// <returns> vrne true, če uspešno doda potezo drugače vrne false</returns>
-        public bool DodajPotezo(int IDigra, string Poteza, string Cas)
-        {
-            try
-            {
-                Povezava.Open();
-                string PodatkiUkaza = "INSERT INTO Poteze (Igra_IDigre, Poteza, CasPoteze) VALUES (@IDigre, @Poteza, @Cas)";
-                MySqlCommand Ukaz = new MySqlCommand(PodatkiUkaza, Povezava);
-                Ukaz.CommandTimeout = 10;
-                Ukaz.Parameters.AddWithValue("@IDigre", IDigra);
-                Ukaz.Parameters.AddWithValue("@Poteza", Poteza);
-                Ukaz.Parameters.AddWithValue("@Cas", Cas);
-                Ukaz.ExecuteNonQuery();
-                Povezava.Close();
-                return true;
-            }
-            catch (Exception)
-            {
-                Povezava.Close();
-                return false;
-            }
+            Povezava.Close();
+            return uspesno;
         }
         /// <summary>
         /// Funkcija za dodajanje sporočila k igri
@@ -226,6 +268,7 @@ namespace FeriChess.Repositories
         /// <returns>Vrne true, če uspešno doda sporočilo. Drugače vrne false</returns>
         public bool DodajSporocilo(int Igralec_IDigralec, int Igra_IDigre, string Vsebina)
         {
+            bool uspesno = true;
             try
             {
                 Povezava.Open();
@@ -236,48 +279,19 @@ namespace FeriChess.Repositories
                 Ukaz.Parameters.AddWithValue("@Igralec_IDigralec", Igralec_IDigralec);
                 Ukaz.Parameters.AddWithValue("@Igra_IDigre", Igra_IDigre);
                 Ukaz.ExecuteNonQuery();
-                Povezava.Close();
-                return true;
             }
             catch (Exception)
             {
-                Povezava.Close();
-                return false;
-            }
-        }
-        /// <summary>
-        /// Funkcija za vračanje vseh potez neke igre
-        /// </summary>
-        /// <param name="Igra_IDigre"> ID igre od katere poteze želimo vrniti</param>
-        /// <returns>Vrne List<string> s vsemimi potezami izbrane igre v istem vrstnem redu kot so bile izvedene</returns>
-        public List<string> VrniPoteze(int Igra_IDigre)
-        {
-            List<string> poteze = new List<string>();
-            try
-            {
-                Povezava.Open();
-                string PodatkiUkaza = "SELECT Poteza FROM Poteze WHERE Igra_IDigre=@Igra_IDigre";
-                MySqlCommand Ukaz = new MySqlCommand(PodatkiUkaza, Povezava);
-                Ukaz.Parameters.AddWithValue("@Igra_IDigre", Igra_IDigre);
-                MySqlDataReader Branje = Ukaz.ExecuteReader();
-                while (Branje.Read())
-                {
-                    poteze.Add(Branje[0].ToString());
-                }
-                Branje.Close();
-            }
-            catch (Exception)
-            {
-                //
+                uspesno = false;
             }
             Povezava.Close();
-            return poteze;
+            return uspesno;
         }
         /// <summary>
         /// Funkcija, ki vrne vzdevek igralca iz njegovega ID
         /// </summary>
         /// <param name="ID">ID igralca</param>
-        /// <returns>vrne vzdevek igralca</returns>
+        /// <returns>vrne vzdevek igralca ob neuspesnem vrne prazen string</returns>
         public string VzdevekIzID(int ID)
         {
             string vzdevek = String.Empty;

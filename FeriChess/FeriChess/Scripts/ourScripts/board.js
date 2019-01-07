@@ -16,13 +16,13 @@ $(document).ready(function () {
         }   
     });
 
+    $("#chessboard").append("<th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th>");
     for (var row = 8; row >= 1; row--) {
         var col = "";
         for (var column = 1; column <= 8; column++) {
             col += "<td class='field' data-pos='" + column + row + "' data-figure='na'></td>";
         }
-
-        $("#chessboard").append("<tr>" + col + "</tr>");
+        $("#chessboard").append("<tr>" + col + "<th>" + row+"</th>"+ "</tr>");
     }
 
     $.ajax({

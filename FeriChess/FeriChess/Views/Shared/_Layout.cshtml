@@ -35,16 +35,20 @@
                     <li class="nav-item">@Html.ActionLink("Game", "Index", "GameDisplay", new { area = "" }, null)</li>
                     <li class="nav-item">@Html.ActionLink("Statistic", "Index", "StatisticsDisplay", new { area = "" }, null)</li>
                     <li class="nav-item">@Html.ActionLink("Learn", "Index", "LearnDisplay", new { area = "" }, null)</li>
-                    <li class="nav-item">@Html.ActionLink("Help", "Index", "Help", new { area = "" }, null)</li> 
+                    <li class="nav-item">@Html.ActionLink("Help", "Index", "Help", new { area = "" }, null)</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-usersize fa-user-circle"></i></a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="@Url.Action("Index", "UserProfile")"><i class="fas fa-leftmarg fa-rightmarg fa-address-card"></i>User Profile</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="@Url.Action("Index", "SuccessfulLogOut")"><i class="fa fa-leftmarg fa-rightmarg fa-sign-out"></i>Sign out</a>
-                        </div>
+                        <!--
+                            <div class="dropdown-menu">
+                                Ni smiselno da je uporabik že vpisan
+                                <a class="dropdown-item" href="@Url.Action("Index", "UserProfile")"><i class="fas fa-leftmarg fa-rightmarg fa-address-card"></i>User Profile</a>
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item" href="@Url.Action("Index", "SuccessfulLogOut")"><i class="fa fa-leftmarg fa-rightmarg fa-sign-out"></i>Sign out</a>
+                            </div>
+                        -->
                     </li>
                 </ul>
             </div>
@@ -54,7 +58,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; RPO projekt 2018-2019</p>
         </footer>
     </div>
 

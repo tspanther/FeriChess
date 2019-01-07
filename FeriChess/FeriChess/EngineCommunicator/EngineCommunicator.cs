@@ -13,6 +13,7 @@ namespace FeriChess.EngineCommunicator
         private Process StockFishProcess;
         private StreamWriter writer;
         private StreamReader reader;
+        private bool Prvic;
         //20 milliseconds is the preset value
         private int MoveTime = 20;
         /// <summary>
@@ -20,9 +21,10 @@ namespace FeriChess.EngineCommunicator
         /// </summary>
         public EngineCommunicator()
         {
+            Prvic = true;
             StockFishProcess = new Process();
-            //Path to the file
-            StockFishProcess.StartInfo.FileName = @"C:\FeriChess\FeriChess\FeriChess\EngineCommunicator\stockfish_10_x64.exe";
+            //Path to the file (Se ne ujema po računalnikih)
+            StockFishProcess.StartInfo.FileName = @"C:\Users\PC\Source\Repos\FeriChess\FeriChess\FeriChess\EngineCommunicator\stockfish_10_x64.exe";
             StockFishProcess.StartInfo.RedirectStandardInput = true;
             StockFishProcess.StartInfo.RedirectStandardOutput = true;
             StockFishProcess.StartInfo.UseShellExecute = false;
@@ -75,7 +77,11 @@ namespace FeriChess.EngineCommunicator
             string output = String.Empty;
             try
             {
-                reader.ReadLine();//get autor to remove it from standart output
+                if (Prvic)
+                {
+                    reader.ReadLine();//get autor to remove it from standart output
+                    Prvic = false;
+                }
                 //input move
                 writer.WriteLine("position fen {0}", FEN);
                 //start search

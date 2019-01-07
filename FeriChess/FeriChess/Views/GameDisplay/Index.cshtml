@@ -16,10 +16,20 @@
 
 </head>
 <body>
+    
     <div class="row">
         <!-- Chessboard -->
         <div class="col-lg-6">
-            <table id='chessboard'></table>
+
+            <div class="row">
+                <table id='chessboard'></table>
+            </div>
+
+            <div class="row">
+                <button type="button" onclick="loadcustom()">custom boardstate</button>
+            </div>
+
+
         </div>
 
         <div class="col-lg-6">
@@ -28,15 +38,19 @@
                 <div class="textbox"></div>
                 <div class="seconduser"><p style="font-weight:bold"><i class="fa fa-rightmarg fa-user"></i>JANA</p></div>
             </div>
+
+            <div class="row">
+                <input class="form-control" id="inputtext" type="text" placeholder="Vnesite sporocilo">
+            </div>
+
+            <div class="checkmate" style="display:none">
+                <p class="winning">Congratulation!!!<br /> Player A Won</p>
+                <div class="before"></div>
+                <div class="after"></div>
+            </div>
         </div>
 
-        <button type="button" onclick="loadcustom()">custom boardstate</button>
-
-        <div class="checkmate" style="display:none">
-            <p class="winning">Congratulation!!!<br /> Player A Won</p>
-            <div class="before"></div>
-            <div class="after"></div>
-        </div>
     </div>
+
 </body>
 </html>
