@@ -52,9 +52,23 @@ namespace FeriChess.Services
             return ret;
         }
 
+        public GamestateChange MakeMove(Move m)
+        {
+            return new GamestateChange()
+            {
+                GameResult = "",
+                UpdateFields = new List<FieldUpdate>() { new FieldUpdate(new Field(1, 2)) }
+            };
+        }
+
         public void SetStartingPosition()
         {
             return;
+        }
+
+        public GamestateChange RequestEngineMove()
+        {
+            return new GamestateChange();
         }
     }
 }
