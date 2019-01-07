@@ -626,20 +626,6 @@ namespace FeriChess.Services
                 GameResult = boardState.Result
             };
 
-            //if (m == null) // let engine do the move
-            //{
-            //    if (isComputerOpponent)
-            //    {
-            //        string engineMoveString = engineCommunicator.NextMove(fENService.BoardStateToFEN());
-            //        Move engineMove = new Move(new Field(engineMoveString[0] - 97 + 1, engineMoveString[1] - '0'), new Field(engineMoveString[2] - 97 + 1, engineMoveString[3] - '0'));
-            //        isComputerOpponent = false; // to not have computer play with itself
-            //        MakeMove(engineMove);
-            //        isComputerOpponent = true;
-            //        return GetFieldUpdates(engineMove);
-            //    }
-            //    return ret;
-            //}
-
             if (boardState.CastleMoves.Exists(x => x.IsSame(m)))
             {
                 ret.UpdateFields.Add(new FieldUpdate(m.From));
@@ -696,7 +682,6 @@ namespace FeriChess.Services
         {
             if (!boardState.Chessboard.Exists(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y)) return false; //validates if piece exists at desired from field
             if (!GetAvailableMoves(boardState.Chessboard.Find(x => x.Field.X == m.From.X && x.Field.Y == m.From.Y).Field).Exists(x => x.To.X == m.To.X && x.To.Y == m.To.Y)) return false; //validates if move is possible
-            MakeMove(m);
             return true;
         }
 
@@ -726,6 +711,66 @@ namespace FeriChess.Services
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Makes a move on the boardstate
+        /// </summary>
+        /// <param name="move"></param>
+        /// <returns>Change of game's state in GamestateChange object. No change if invalid move</returns>
+        public GamestateChange MakeMove(Move move)
+        {
+            if (!IsValid(move))
+            {
+                return new GamestateChange
+                {
+                    UpdateFields = new List<FieldUpdate>(),
+                    GameResult = ""
+                };
+            }
+
+            Piece p = GetPiece(move.From);
+            boardState.LastMovedPiece = p;
+            if (p.Name == "" && (move.To.Y == 1 || move.To.Y == 8)) boardState.CheckPromotion = true;
+            if (p.Name == "K") p.Moved = true;
+            if (p.Name == "R") p.Moved = true;
+            if (boardState.EnPasantPosible && boardState.LastMovedPiece.Name == "")
+            {
+                if (p.Name == "" && move.To.Y != move.From.X && move.To.X != move.From.Y && !boardState.Chessboard.Exists(x => x.Field.X == move.To.X && x.Field.Y == move.To.Y)) EnPasant(move);
+            }
+            //if (ActivePlayer().Color != Chessboard.Find(x => x.Field.X == m.From.X&&x.Field.Y==m.From.Y).Color) return; //todo premoves
+            if (boardState.CastleMoves.Exists(x => x.IsSame(move))) MoveRook(move);
+            if (boardState.Chessboard.Exists(x => x.Field.X == move.To.X && x.Field.Y == move.To.Y && x.Color != ActivePlayer().Color))
+            {
+                boardState.Chessboard.Remove(boardState.Chessboard.Find(x => x.Field.X == move.To.X && x.Field.Y == move.To.Y)); //capture
+            }
+            if (boardState.CheckPromotion == true) MovePromotion(move);
+            p.Field = new Field(move.To.X, move.To.Y);
+            boardState.CoveredFields = GetNewCoveredFields(!ActivePlayer().Color);
+            if (Covered(GetKingPos(ActivePlayer().Color))) ActivePlayer().InCheck = false;
+            ChangeTurn();
+            if (MovesPossible() == false)
+            {
+                if (ActivePlayer().InCheck == true) boardState.Result = (InactivePlayer().Color ? "white" : "black") + " wins";
+                else boardState.Result = "draw";
+            }
+            boardState.MovesDone.Add(move);
+            if (ThreeFoldRep()) boardState.Result = "draw";
+            if (InsufficientMaterial()) boardState.Result = "draw";
+
+            return GetFieldUpdates(move);
+        }
+
+        /// <summary>
+        /// Asks engine for a move, makes it and returns change of game state
+        /// </summary>
+        /// <returns>GamestateChange after engine move</returns>
+        public GamestateChange RequestEngineMove()
+        {
+            string fen = fENService.BoardStateToFEN(boardState);
+            string engineMoveString = engineCommunicator.NextMove(fen);
+            Move engineMove = new Move(new Field(engineMoveString[0] - 97 + 1, engineMoveString[1] - '0'), new Field(engineMoveString[2] - 97 + 1, engineMoveString[3] - '0'));
+            return MakeMove(engineMove);
         }
 
         #endregion
@@ -1016,36 +1061,6 @@ namespace FeriChess.Services
             boardState.Chessboard.Remove(boardState.Chessboard.Find(x => x.Field.Y == m.From.Y && x.Field.X == m.To.X));
             boardState.EnPasantPosible = false;
             boardState.EnPasantHappened = true;
-        }
-        private void MakeMove(Move m)
-        {
-            Piece p = GetPiece(m.From);
-            boardState.LastMovedPiece = p;
-            if (p.Name == "" && (m.To.Y == 1 || m.To.Y == 8)) boardState.CheckPromotion = true;
-            if (p.Name == "K") p.Moved = true;
-            if (p.Name == "R") p.Moved = true;
-            if (boardState.EnPasantPosible && boardState.LastMovedPiece.Name == "") {
-                if (p.Name == "" && m.To.Y != m.From.X && m.To.X != m.From.Y && !boardState.Chessboard.Exists(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y)) EnPasant(m);
-            }
-            //if (ActivePlayer().Color != Chessboard.Find(x => x.Field.X == m.From.X&&x.Field.Y==m.From.Y).Color) return; //todo premoves
-            if (boardState.CastleMoves.Exists(x => x.IsSame(m))) MoveRook(m);
-            if (boardState.Chessboard.Exists(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y && x.Color != ActivePlayer().Color))
-            {
-                boardState.Chessboard.Remove(boardState.Chessboard.Find(x => x.Field.X == m.To.X && x.Field.Y == m.To.Y)); //capture
-            }
-            if (boardState.CheckPromotion == true) MovePromotion(m);
-            p.Field = new Field(m.To.X, m.To.Y);
-            boardState.CoveredFields = GetNewCoveredFields(!ActivePlayer().Color);
-            if (Covered(GetKingPos(ActivePlayer().Color))) ActivePlayer().InCheck = false;
-            ChangeTurn();
-            if (MovesPossible() == false)
-            {
-                if (ActivePlayer().InCheck == true) boardState.Result = (InactivePlayer().Color ? "white" : "black") + " wins";
-                else boardState.Result = "draw";
-            }
-            boardState.MovesDone.Add(m);
-            if (ThreeFoldRep()) boardState.Result = "draw";
-            if (InsufficientMaterial()) boardState.Result = "draw";
         }
         private bool InsufficientMaterial()
         {

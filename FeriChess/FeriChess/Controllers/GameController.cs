@@ -50,22 +50,14 @@ namespace FeriChess.Controllers
         [HttpPost]
         public GamestateChange MakeAMove(Move move)
         {
-            if (_boardService.IsValid(move))
+            GamestateChange gsc = _boardService.MakeMove(move);
+            if (_boardService.isComputerOpponent && gsc.GameResult == "")
             {
-                GamestateChange gsc = _boardService.GetFieldUpdates(move);
-                //if (_boardService.isComputerOpponent)
-                //{
-                //    GamestateChange gscE = _boardService.GetFieldUpdates(null);
-                //    gscE.UpdateFields.AddRange(gsc.UpdateFields);
-                //    return gscE;
-                //}
-                return gsc;
+                GamestateChange gscE = _boardService.RequestEngineMove();
+                gsc.UpdateFields.AddRange(gscE.UpdateFields);
+                gsc.GameResult = gscE.GameResult;
             }
-            return new GamestateChange
-            {
-                UpdateFields = new List<FieldUpdate>(),
-                GameResult = ""
-            };
+            return gsc;
         }
     }
 }
