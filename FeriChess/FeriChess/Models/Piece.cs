@@ -18,16 +18,12 @@ namespace FeriChess.Models
             Name = n;
             Moved = false;
         }
-        public static bool operator == (Piece one,Piece two)
+        public bool isSame(Piece p)
         {
-            if (one.Field.X == two.Field.X && one.Field.Y == two.Field.Y) return true;
+            if (Field.IsSame(p.Field)) return true;
             return false;
         }
-        public static bool operator !=(Piece one, Piece two)
-        {
-            if (one.Field.X == two.Field.X && one.Field.Y == two.Field.Y) return false;
-            return true;
-        }
+
         public Piece(Piece p)
         {
             Field = p.Field;
