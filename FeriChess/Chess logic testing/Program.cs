@@ -18,7 +18,7 @@ namespace Chess_logic_testing
         static void Main(string[] args)
         {
             string input;
-            BoardService ChessBoard = new BoardService(new EngineCommunicator());
+            BoardService ChessBoard = new BoardService(new EngineCommunicator(), new FENService());
             while (true)
             {
                 Console.WriteLine(ChessBoard.ToString());
