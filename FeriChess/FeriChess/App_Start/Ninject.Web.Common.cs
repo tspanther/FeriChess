@@ -8,6 +8,7 @@ namespace FeriChess.App_Start
     using FeriChess.EngineCommunicator;
     using FeriChess.Interfaces;
     using FeriChess.Services;
+    using FeriChess.Services.Interfaces;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -66,7 +67,11 @@ namespace FeriChess.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IEngineCommunicator>().To<EngineCommunicator>().InSingletonScope();
-            kernel.Bind<IBoardService>().ToConstant(new BoardService(kernel.Get<IEngineCommunicator>()));
+            kernel.Bind<IFENService>().To<FENService>().InSingletonScope();
+            kernel.Bind<IBoardService>().ToConstant(new BoardService(
+                kernel.Get<IEngineCommunicator>(),
+                kernel.Get<IFENService>()
+                ));
         }
     }
 }
