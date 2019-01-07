@@ -208,33 +208,6 @@ namespace FeriChess.Services
             }
             return s;
         }
-        public void SetCustomPosition(string s)
-        {
-            Chessboard = new List<Piece>();
-            string[] pieces = s.Split(',');
-            foreach (var a in pieces)
-            {
-                Chessboard.Add(new Piece(new Field(a[2], a[3] - '0'), a[0] == 1 ? true : false, a[1].ToString()));
-            }
-        }
-        public string MovesToString()
-        {
-            string s = "";
-            foreach (Move a in MovesDone)
-            {
-                s += a.ToString() + ',';
-            }
-            return s;
-        }
-        public string GameStateToString()
-        {
-            string s = "";
-            foreach (var a in Chessboard)
-            {
-                s += a.ToString() + ',';
-            }
-            return s;
-        }
         private Piece LastMovedPiece;
         private bool EnPasantHappened = false;
         private bool EnPasantPosible = false;
