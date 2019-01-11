@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeriChess", "FeriChess\Feri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeriChess.Tests", "FeriChess.Tests\FeriChess.Tests.csproj", "{15AC36EF-6D3B-42CA-9D7F-815C5AA27606}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess logic testing", "Chess logic testing\Chess logic testing.csproj", "{D015819A-59A9-4AF9-B079-9149D096E79F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{15AC36EF-6D3B-42CA-9D7F-815C5AA27606}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15AC36EF-6D3B-42CA-9D7F-815C5AA27606}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15AC36EF-6D3B-42CA-9D7F-815C5AA27606}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D015819A-59A9-4AF9-B079-9149D096E79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D015819A-59A9-4AF9-B079-9149D096E79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D015819A-59A9-4AF9-B079-9149D096E79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D015819A-59A9-4AF9-B079-9149D096E79F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
