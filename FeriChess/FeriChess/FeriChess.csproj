@@ -223,6 +223,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GameDisplayController.cs" />
     <Compile Include="Controllers\LandingPageController.cs" />
@@ -236,10 +237,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountActionResponse.cs" />
+    <Compile Include="Models\AuthenticationRequest.cs" />
     <Compile Include="Models\BoardState.cs" />
     <Compile Include="Models\GamestateChange.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Repositories\MoveRepository.cs" />
+    <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\BoardService.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Models\FieldUpdate.cs" />
@@ -247,6 +252,7 @@
     <Compile Include="Models\Piece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FENService.cs" />
+    <Compile Include="Services\Interfaces\IAccountService.cs" />
     <Compile Include="Services\Interfaces\IBoardService.cs" />
     <Compile Include="Services\Interfaces\IFENService.cs" />
     <Compile Include="Services\MockBoardService.cs" />

@@ -66,6 +66,7 @@ namespace FeriChess.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IAccountService>().ToConstant(new AccountService());
             kernel.Bind<IEngineCommunicator>().ToConstant(new EngineCommunicator());
             kernel.Bind<IFENService>().To<FENService>().InSingletonScope();
             kernel.Bind<IBoardService>().ToConstant(new BoardService(

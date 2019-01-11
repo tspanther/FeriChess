@@ -4,7 +4,7 @@
 <head>
     <title>Play Chess - SignIn</title>
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" charset="utf-8"></script>
-    <script src="./../../Scripts/ourScripts/board.js"></script>
+    <script src="./../../Scripts/ourScripts/account.js"></script>
     <link type="text/css" rel="stylesheet" href="./../../Content/ourContent/mainPage.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -14,9 +14,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" charset="utf-8"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-    <script src="./../../Scripts/ourScripts/board.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="./../../Content/ourContent/mainPage.css">
+    <script src="./../../Scripts/ourScripts/account.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
@@ -28,43 +28,16 @@
     </div>
 </div>
     <!-- LogIn Form -->
-    <div class="row">
-    <div class="login-form closeform" id="Login">
-        <form action="/examples/actions/confirmation.php" method="post">
-            <h2 class="text-center">Log in</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="e-mail" required="required">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" required="required">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-login btn-block" href="@Url.Action("Index", "GameDisplay")">Log in</button>
-            </div>
-            <hr>
-            <div class="form-group">
-                <a class="form-textbreak pull-right" href="#">Forgot Password?</a>
-            </div>
-        </form>
-    </div>
+    <h2>Log in</h2>
+    <input type="text" placeholder="username" id="loginusrn">
+    <input type="text" placeholder="e-mail" id="loginemail">
+    <input type="password" placeholder="Password" required="required" id="loginpass">
+    <button class="btn btn-signin btn-block" onclick="login()">Log in</button>
     <!-- SignIn Form -->
-    <div class="login-form closeform" id="Signin">
-        <form action="/examples/actions/confirmation.php" method="post">
-            <h2 class="text-center">Sign in</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="username" required="required">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="e-mail" required="required">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" required="required">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-signin btn-block" href="@Url.Action("Index", "GameDisplay")">Sign in</button>
-            </div>
-        </form>
-    </div>
-   </div>
+    <h2>Sign in</h2>
+    <input type="text" placeholder="username" required="required" id="signinusrn">
+    <input type="text" placeholder="e-mail" required="required" id="signinemail">
+    <input type="password" placeholder="Password" required="required" id="signinpass">
+    <button class="btn btn-signin btn-block" onclick="signin()">Sign in</button>
 </body>
 </html>

@@ -1,21 +1,5 @@
 $(document).ready(function () {
-    $("#login-btn").click(function () {
-        if ($("#Login").hasClass("closeform")) {
-            $("#Login").removeClass("closeform").addClass("openform");
-        } else {
-            $("#Login").removeClass("openform").addClass("closeform");
-        }
-    });
-
-    $("#signin-btn").click(function () {
-        if ($("#Signin").hasClass("closeform")) {
-            $("#Signin").removeClass("closeform").addClass("openform");
-        } else {
-            $("#Signin").removeClass("openform").addClass("closeform");
-;
-        }   
-    });
-
+    
     for (var row = 8; row >= 1; row--) {
         var col = "";
         for (var column = 1; column <= 8; column++) {
@@ -77,7 +61,7 @@ $(document).ready(function () {
 
             if (firstClick) {
                 $(this).addClass("selected-field");
-                
+
                 firstClick = false;
                 prevClickedField = $(this).attr("data-pos");
 
@@ -131,7 +115,7 @@ $(document).ready(function () {
                             $("td[data-pos=" + pos + "]").attr("data-figure", fig);
                         }
                         var gameResult = data.GameResult;
-                        if (gameResult!="") {
+                        if (gameResult != "") {
                             alert(gameResult);
                         }
                     }
@@ -147,18 +131,18 @@ $(document).ready(function () {
     });
 });
 
-function clearBoard(){
-    for (var i=1; i<=8; i++){
-        for (var j=1; j<=8;j++){
+function clearBoard() {
+    for (var i = 1; i <= 8; i++) {
+        for (var j = 1; j <= 8; j++) {
             var pos = "";
-            pos+=i;
-            pos+=j;
+            pos += i;
+            pos += j;
             $("td[data-pos=" + pos + "]").attr("data-figure", "na");
         }
     }
 }
 
-function loadcustom(){
+function loadcustom() {
     clearBoard();
     $.ajax({
         type: "GET",
