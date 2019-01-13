@@ -84,6 +84,7 @@ table {
 #chessboard {
     padding: 0px;
     margin: 0 auto;
+    border: 5px solid black;
 }
 
     #chessboard tr td {
@@ -146,6 +147,14 @@ table {
 }
 
 /*Winning + Annimation*/
+.nonvisibleresult {
+    display:none;
+}
+
+.visibleresult {
+    display:block;
+}
+
 .checkmate {
     position: absolute;
     top: 0;
@@ -444,9 +453,18 @@ table {
 }
 
 .openform {
-    display:block;
+    display: flex;
+    margin-top: 2%;
 }
 
+.iteminform {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.login-signin-form {
+    background-color: #fff;
+}
 
 /*BTN*/
 .btn {

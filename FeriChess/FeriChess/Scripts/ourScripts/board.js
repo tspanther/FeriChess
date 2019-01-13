@@ -116,7 +116,7 @@ $(document).ready(function () {
                         }
                         var gameResult = data.GameResult;
                         if (gameResult != "") {
-                            alert(gameResult);
+                            $("#result").removeClass("nonvisibleresult").addClass("visibleresult");
                         }
                     }
                 },
