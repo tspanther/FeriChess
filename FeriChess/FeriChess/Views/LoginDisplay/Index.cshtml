@@ -22,22 +22,34 @@
 </head>
 <body>
     <div class="row">
-    <div class="col-xs-12 btn-group text-center">
-        <button class="btn loginbtn" id="login-btn">Log In</button>
-        <button class="btn signinbtn" id="signin-btn">Sign In</button>
+        <div class="col-xs-12 btn-group text-center">
+            <button class="btn loginbtn" id="login-btn">Log In</button>
+            <button class="btn signinbtn" id="signin-btn">Sign In</button>
+        </div>
     </div>
-</div>
     <!-- LogIn Form -->
-    <h2>Log in</h2>
-    <input type="text" placeholder="username" id="loginusrn">
-    <input type="text" placeholder="e-mail" id="loginemail">
-    <input type="password" placeholder="Password" required="required" id="loginpass">
-    <button class="btn btn-signin btn-block" onclick="login()">Log in</button>
+    <div class="row">
+        <div id="Login" class="col-md-4 login-signin-form closeform col-md-offset-4">
+            <div class="box">
+                <h2 class="col-xs-12 text-center">Log in</h2>
+                <input class="col-xs-12 iteminform" type="text" placeholder="username" id="loginusrn">
+                <input class="col-xs-12 iteminform" type="text" placeholder="e-mail" id="loginemail">
+                <input class="col-xs-12 iteminform" type="password" placeholder="Password" required="required" id="loginpass">
+                <button class="btn btn-signin btn-block col-xs-12" style="margin-bottom: 20px" onclick="login()">Log in</button>
+            </div>
+        </div>
+    </div>
     <!-- SignIn Form -->
-    <h2>Sign in</h2>
-    <input type="text" placeholder="username" required="required" id="signinusrn">
-    <input type="text" placeholder="e-mail" required="required" id="signinemail">
-    <input type="password" placeholder="Password" required="required" id="signinpass">
-    <button class="btn btn-signin btn-block" onclick="signin()">Sign in</button>
+    <div class="row">
+        <div id="Signin" class="col-md-4 login-signin-form closeform col-md-offset-4">
+            <div class="box">
+                <h2 class="col-xs-12 text-center">Sign in</h2>
+                <input class="col-xs-12 iteminform" type="text" placeholder="username" required="required" id="signinusrn">
+                <input class="col-xs-12 iteminform" type="text" placeholder="e-mail" required="required" id="signinemail">
+                <input class="col-xs-12 iteminform" type="password" placeholder="Password" required="required" id="signinpass">
+                <button class="btn btn-signin btn-block col-xs-12" style="margin-bottom: 20px" onclick="signin()">Sign in</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
