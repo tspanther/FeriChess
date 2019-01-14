@@ -3,9 +3,9 @@
 <head>
     <title>Play Chess</title>
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-    <script src="./../../Scripts/ourScripts/board.js"></script>
-    <link type="text/css" rel="stylesheet" href="./../../Content/ourContent/mainPage.css" />*@
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+        <script src="./../../Scripts/ourScripts/board.js"></script>
+        <link type="text/css" rel="stylesheet" href="./../../Content/ourContent/mainPage.css" />*@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" charset="utf-8"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
@@ -29,7 +29,12 @@
                 <div class="seconduser"><p style="font-weight:bold"><i class="fa fa-rightmarg fa-user"></i>JANA</p></div>
             </div>
             <div class="col-md-4 col-md-offset-4">
-                <button class="btn btn-default" type="button" onclick="loadcustom()">custom boardstate</button>
+                <div class="col">
+                    <button class="btn btn-default" type="button" onclick="loadcustom($('.puzzleinput').val())">custom boardstate</button>
+                </div>
+                <div class="col">
+                    <input type="text" class="puzzleinput" />
+                </div>
             </div>
             <div class="col-md-4 col-md-offset-4">
                 <button class="btn btn-default" type="button" onclick="playagain()">Play again</button>
@@ -38,7 +43,7 @@
 
 
         <div id="result" class="checkmate nonvisibleresult">
-            <p id="wintext" class="winning">Congratulation!!!<br />YOU Won</p>
+            <p id="wintext" class="winning">Congratulations!!!<br /></p>
             <div class="before"></div>
             <div class="after"></div>
         </div>

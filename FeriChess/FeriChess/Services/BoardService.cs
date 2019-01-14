@@ -672,6 +672,13 @@ namespace FeriChess.Services
                 isComputerOpponent = false;
                 return boardState.Chessboard.Select(x => new FieldUpdate(x)).ToList();
             }
+            else if(id == 42)
+            {
+                Reset();
+                SetStartingPosition();
+                isComputerOpponent = true;
+                return boardState.Chessboard.Select(x => new FieldUpdate(x)).ToList();
+            }
             else
             {
                 if (id <= puzzleService.puzzles.Count)
@@ -723,11 +730,11 @@ namespace FeriChess.Services
             if (MovesPossible() == false)
             {
                 if (ActivePlayer().InCheck == true) boardState.Result = (InactivePlayer().Color ? "white" : "black") + " wins";
-                else boardState.Result = "draw";
+                else boardState.Result = "stalemate";
             }
             boardState.MovesDone.Add(move);
-            if (ThreeFoldRep()) boardState.Result = "draw";
-            if (InsufficientMaterial()) boardState.Result = "draw";
+            if (ThreeFoldRep()) boardState.Result = "draw by threefold repetition";
+            if (InsufficientMaterial()) boardState.Result = "draw by insufficient material";
 
             return GetFieldUpdates(move);
         }
