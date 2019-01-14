@@ -11,6 +11,7 @@ namespace FeriChess.EngineCommunicator
     public class EngineCommunicator: IEngineCommunicator
     {
         private Process StockFishProcess;
+        private bool firstTime;
         private StreamWriter writer;
         private StreamReader reader;
         //20 milliseconds is the preset value
@@ -21,8 +22,9 @@ namespace FeriChess.EngineCommunicator
         public EngineCommunicator()
         {
             StockFishProcess = new Process();
+            firstTime = true;
             //Path to the file
-            StockFishProcess.StartInfo.FileName = @"C:\FeriChess\FeriChess\FeriChess\EngineCommunicator\stockfish_10_x64.exe";
+            StockFishProcess.StartInfo.FileName = @"C:\Users\PC\Source\Repos\FeriChess\FeriChess\FeriChess\EngineCommunicator\stockfish_10_x64.exe";
             StockFishProcess.StartInfo.RedirectStandardInput = true;
             StockFishProcess.StartInfo.RedirectStandardOutput = true;
             StockFishProcess.StartInfo.UseShellExecute = false;
@@ -75,7 +77,12 @@ namespace FeriChess.EngineCommunicator
             string output = String.Empty;
             try
             {
-                reader.ReadLine();//get autor to remove it from standart output
+                if (firstTime)
+                {
+                    firstTime = false;
+                    reader.ReadLine();//get autor to remove it from standart output
+                }
+                
                 //input move
                 writer.WriteLine("position fen {0}", FEN);
                 //start search
