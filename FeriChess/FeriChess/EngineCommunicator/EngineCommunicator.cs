@@ -23,8 +23,7 @@ namespace FeriChess.EngineCommunicator
         {
             StockFishProcess = new Process();
             firstTime = true;
-            //Path to the file
-            StockFishProcess.StartInfo.FileName = @"C:\Users\PC\Source\Repos\FeriChess\FeriChess\FeriChess\EngineCommunicator\stockfish_10_x64.exe";
+            StockFishProcess.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory+@"\EngineCommunicator\stockfish_10_x64.exe";
             StockFishProcess.StartInfo.RedirectStandardInput = true;
             StockFishProcess.StartInfo.RedirectStandardOutput = true;
             StockFishProcess.StartInfo.UseShellExecute = false;

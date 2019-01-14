@@ -31,10 +31,10 @@ $(document).ready(function () {
             }
         },
         failure: function (data) {
-            alert("shit");
+            console.log("shit");
         },
         error: function (data) {
-            alert("shitshit");
+            console.log("shitshit");
         }
     });
 
@@ -121,10 +121,10 @@ $(document).ready(function () {
                     }
                 },
                 failure: function (data) {
-                    alert("shit");
+                    console.log("shit");
                 },
                 error: function (data) {
-                    alert("shitshit");
+                    console.log("shitshit");
                 }
             });
         });
@@ -141,7 +141,37 @@ function clearBoard() {
         }
     }
 }
-
+function playagain() {
+    clearBoard();
+    $.ajax({
+        type: "GET",
+        url: "api/game/load-boardstate/0",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            var fieldUpdates = data;
+            var pos;
+            var fig;
+            for (var i = 0; i < fieldUpdates.length; i++) {
+                change = fieldUpdates[i];
+                pos = change.Field.X.toString() + change.Field.Y.toString();
+                if (change.PopulateBy != null) {
+                    fig = change.PopulateBy.toLowerCase();
+                }
+                else {
+                    fig = "na";
+                }
+                $("td[data-pos=" + pos + "]").attr("data-figure", fig);
+            }
+        },
+        failure: function (data) {
+            console.log("shit");
+        },
+        error: function (data) {
+            console.log("shitshit");
+        }
+    });
+}
 function loadcustom() {
     clearBoard();
     $.ajax({
@@ -166,10 +196,10 @@ function loadcustom() {
             }
         },
         failure: function (data) {
-            alert("shit");
+            console.log("shit");
         },
         error: function (data) {
-            alert("shitshit");
+            console.log("shitshit");
         }
     });
 }
