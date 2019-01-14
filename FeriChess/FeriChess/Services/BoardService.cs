@@ -672,18 +672,19 @@ namespace FeriChess.Services
                 isComputerOpponent = false;
                 return boardState.Chessboard.Select(x => new FieldUpdate(x)).ToList();
             }
-            else if(id == 42)
+            else if (id == 1) //new ai game
             {
                 Reset();
                 SetStartingPosition();
                 isComputerOpponent = true;
                 return boardState.Chessboard.Select(x => new FieldUpdate(x)).ToList();
             }
-            else
+            else if (id > 1)
             {
-                if (id <= puzzleService.puzzles.Count)
+                string puzzle = puzzleService.getpuzzle(id - 1);
+                if (puzzle != "")
                 {
-                    boardState = fENService.SetCustomPositionFEN(puzzleService.puzzles[id - 1]);
+                    boardState = fENService.SetCustomPositionFEN(puzzle);
                     isComputerOpponent = true;
                     List<FieldUpdate> ret = boardState.Chessboard.Select(x => new FieldUpdate(x)).ToList();
                     return ret;
@@ -773,8 +774,8 @@ namespace FeriChess.Services
         /// <returns></returns>
         public string MovesToString()
         {
-            string s="";
-            foreach(Move a in boardState.MovesDone)
+            string s = "";
+            foreach (Move a in boardState.MovesDone)
             {
                 s += a.ToString() + ',';
             }
@@ -786,8 +787,8 @@ namespace FeriChess.Services
         /// <returns></returns>
         public string GameStateToString()
         {
-            string s="";
-            foreach(var a in boardState.Chessboard)
+            string s = "";
+            foreach (var a in boardState.Chessboard)
             {
                 s += a.ToString() + ',';
             }
@@ -1169,9 +1170,9 @@ namespace FeriChess.Services
         {
             int moveNum = boardState.MovesDone.Count();
             if (moveNum < 6) return false;
-            if (boardState.MovesDone[moveNum - 1].To.IsSame(boardState.MovesDone[moveNum - 5].To) 
-                && boardState.MovesDone[moveNum - 3].To.IsSame(boardState.MovesDone[moveNum - 7].To) 
-                && boardState.MovesDone[moveNum - 6].To.IsSame(boardState.MovesDone[moveNum - 2].To) 
+            if (boardState.MovesDone[moveNum - 1].To.IsSame(boardState.MovesDone[moveNum - 5].To)
+                && boardState.MovesDone[moveNum - 3].To.IsSame(boardState.MovesDone[moveNum - 7].To)
+                && boardState.MovesDone[moveNum - 6].To.IsSame(boardState.MovesDone[moveNum - 2].To)
                 && boardState.MovesDone[moveNum - 8].To.IsSame(boardState.MovesDone[moveNum - 4].To)) return true;
             return false;
         }
@@ -1229,6 +1230,5 @@ namespace FeriChess.Services
             };
         }
     }
-        #endregion
+    #endregion
 }
- 
