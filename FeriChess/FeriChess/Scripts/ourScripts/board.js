@@ -117,7 +117,7 @@ $(document).ready(function () {
                         var gameResult = data.GameResult;
                         if (gameResult != "") {
                             $("#result").removeClass("nonvisibleresult").addClass("visibleresult");
-                            if (gameResult == "draw") $("#wintext").text("draw");
+                            if (gameResult == "draw") $("#wintext").text(gameResult);
                             else $("#wintext").append(gameResult);
                         }
                     }
