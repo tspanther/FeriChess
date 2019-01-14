@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+    $("#closediv").click(function () {
+        $("#result").removeClass("visibleresult").addClass("nonvisibleresult");
+    });
     
     for (var row = 8; row >= 1; row--) {
         var col = "";

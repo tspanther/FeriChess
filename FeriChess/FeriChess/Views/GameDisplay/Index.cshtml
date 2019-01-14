@@ -28,21 +28,30 @@
                 <div class="textbox"></div>
                 <div class="seconduser"><p style="font-weight:bold"><i class="fa fa-rightmarg fa-user"></i>JANA</p></div>
             </div>
-            <div class="col-md-4 col-md-offset-4">
-                <div class="col">
+        </div>
+
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-5">
                     <button class="btn btn-default" type="button" onclick="loadcustom($('.puzzleinput').val())">custom boardstate</button>
                 </div>
-                <div class="col">
+                <div class="col-md-12 col-md-offset-5">
                     <input type="text" class="puzzleinput" />
                 </div>
-            </div>
-            <div class="col-md-4 col-md-offset-4">
-                <button class="btn btn-default" type="button" onclick="playagain()">Play again</button>
+                <div class="col-md-12 col-md-offset-5">
+                    <button class="btn btn-login" type="button" onclick="playagain()">Play again</button>
+                </div>
             </div>
         </div>
 
 
         <div id="result" class="checkmate nonvisibleresult">
+            <div class="col-lg-12">
+                <a id="closediv" >
+                    <i  class="glyphicon glyphicon-remove pull-right" style="color:white"></i>
+                </a>
+            </div>
+            @*<i id="closediv" class="fa fa-exit pull-right" style="color:white"></i>*@
             <p id="wintext" class="winning">Congratulations!!!<br /></p>
             <div class="before"></div>
             <div class="after"></div>
