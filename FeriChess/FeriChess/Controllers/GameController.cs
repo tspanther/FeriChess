@@ -51,7 +51,7 @@ namespace FeriChess.Controllers
         public GamestateChange MakeAMove(Move move)
         {
             GamestateChange gsc = _boardService.MakeMove(move);
-            if (_boardService.isComputerOpponent && gsc.GameResult == "")
+            if (_boardService.isComputerOpponent && gsc.GameResult == "" && gsc.UpdateFields.Count > 0)
             {
                 GamestateChange gscE = _boardService.RequestEngineMove();
                 gsc.UpdateFields.AddRange(gscE.UpdateFields);

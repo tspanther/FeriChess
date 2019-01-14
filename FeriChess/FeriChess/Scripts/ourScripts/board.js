@@ -99,7 +99,7 @@ $(document).ready(function () {
                             $("td[data-pos=" + pos + "]").addClass("available-move");
                         }
                     }
-                    else if (method = "make-a-move") {
+                    else if (method == "make-a-move") {
                         var fieldUpdates = data.UpdateFields;
                         var pos;
                         var fig;
