@@ -117,6 +117,8 @@ $(document).ready(function () {
                         var gameResult = data.GameResult;
                         if (gameResult != "") {
                             $("#result").removeClass("nonvisibleresult").addClass("visibleresult");
+                            if (gameResult == "draw") $("#wintext").text("draw");
+                            else $("#wintext").append(gameResult);
                         }
                     }
                 },
@@ -172,11 +174,11 @@ function playagain() {
         }
     });
 }
-function loadcustom() {
+function loadcustom(num) {
     clearBoard();
     $.ajax({
         type: "GET",
-        url: "api/game/load-boardstate/1",
+        url: "api/game/load-boardstate/"+num,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
