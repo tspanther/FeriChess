@@ -57,6 +57,28 @@ namespace FeriChess.Repositories
                 return false;
             }
         }
+
+
+        public bool ObstajaIgralec(string uporabnisko, string geslo)
+        {
+            bool obstaja = false;
+            Povezava.Open();
+            string PodatkiUkaza = "SELECT * FROM Igralec WHERE Vzdevek=@Vzdevek AND Geslo=@Geslo";
+            MySqlCommand Ukaz = new MySqlCommand(PodatkiUkaza, Povezava);
+            Ukaz.Parameters.AddWithValue("@Vzdevek", uporabnisko);
+            Ukaz.Parameters.AddWithValue("@Geslo", geslo);
+            MySqlDataReader Branje = Ukaz.ExecuteReader();
+            if (Branje.Read())
+            {
+                obstaja = true;
+            }
+            Branje.Close();
+            return obstaja;
+        }
+
+
+
+
         /// <summary>
         /// Funkcija za dodajanje rojstnega datuma
         /// </summary>
