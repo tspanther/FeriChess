@@ -3,7 +3,7 @@ $(document).ready(function () {
     $("#closediv").click(function () {
         $("#result").removeClass("visibleresult").addClass("nonvisibleresult");
     });
-    
+  
     for (var row = 8; row >= 1; row--) {
         var col = "";
         for (var column = 1; column <= 8; column++) {
@@ -208,4 +208,6 @@ function loadcustom(num) {
             console.log("shitshit");
         }
     });
+
+ 
 }
