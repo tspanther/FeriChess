@@ -31,7 +31,7 @@ namespace FeriChess.Controllers
             }
             if (authenticationRequest.Type == AuthenticationRequest.AuthenticationType.Login)
             {
-                if (baza.ObstajaIgralec(authenticationRequest.Username, authenticationRequest.Password))
+                if (baza.Exsists(authenticationRequest.Username, authenticationRequest.Password))
                 { 
                     return new AccountActionResponse()
                     {
